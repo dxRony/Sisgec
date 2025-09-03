@@ -1,0 +1,75 @@
+Sistema de Gestión de Venta y Ensamblaje de Computadoras
+    Objetivos
+        Objetivo General
+        - Desarrollar una aplicación web que permita la gestión de ventas de computadoras ya armadas, la construcción de computadoras personalizadas a partir de componentes disponibles en inventario, y la gestión de ensamblaje y ventas por empleados, aplicando conceptos de teoría de sistemas para estructurar entradas, procesos y salidas de forma eficiente y segura.
+        
+        Objetivos Específicos
+        - Facilitar la compra de computadoras ya armadas con control de stock y características técnicas detalladas.
+        - Implementar un sistema de construcción de computadoras personalizadas basado en recetas mínimas de componentes.
+        - Desarrollar un módulo de administración de inventario para gestionar productos, componentes y empleados.
+        - Incorporar un carrito de compras que valide existencias antes de confirmar la compra.
+        - Diseñar un sistema de reportes y estadísticas que apoye la toma de decisiones.
+        - Asignar tareas de armado y venta a empleados, asegurando trazabilidad de procesos y control de inventario.
+        - Considerar en el diseño aspectos relacionados con la seguridad de la información y la autenticación de usuarios, dado que el cliente ha mostrado preocupación en estos puntos.
+
+    Introducción
+    El objetivo de este proyecto es diseñar un sistema web que funcione como una tienda en línea para la venta de computadoras y sus componentes. La aplicación permitirá ofrecer un catálogo de computadoras ya armadas y, adicionalmente, permitirá a los usuarios armar computadoras personalizadas siempre que cumplan con una receta mínima de componentes básicos (procesador, memoria RAM, almacenamiento, fuente de poder, gabinete).
+
+    El sistema busca solucionar la falta de organización y control en la venta y ensamblaje de equipos de cómputo, donde actualmente los procesos de stock, personalización, validación de configuraciones y seguimiento de tareas suelen gestionarse manualmente o de forma ineficiente. Con este sistema, se espera optimizar los procesos de compra, ensamblaje y ventas, garantizando disponibilidad de inventario, precisión en los pedidos y reportes claros para la dirección de la empresa.
+
+    El enfoque se basa en teoría de sistemas, considerando entradas, procesos y salidas, asegurando retroalimentación constante.
+    
+    Características Principales
+        Gestión de Computadoras ya Armadas
+        - Registro de computadoras con código único, stock disponible y especificaciones técnicas.
+        - Posibilidad de compra directa si existe disponibilidad.
+        - Consulta de características técnicas antes de la compra.
+
+        Gestión de Computadoras Personalizadas
+        - Ensamblaje de computadoras a partir de componentes del inventario.
+        - Validación automática de receta mínima para crear un producto válido.
+        - Generación de un código único para cada computadora personalizada.
+        - Posibilidad de modificar configuraciones de equipos predefinidos (ejemplo: agregar más RAM o almacenamiento).
+
+        Carrito de Compras
+        - Validación de stock al agregar productos o componentes.
+        - Confirmación de pedidos solo si existe inventario suficiente.
+        - Registro de compras finalizadas con descuento automático del stock.
+
+        Gestión de Inventario y Procesos
+        - Administración de inventario de computadoras, componentes y personal involucrado.
+        - Control de stock crítico con alertas de agotamiento.
+        - Supervisión de ventas de computadoras armadas y personalizadas.
+        - Posibilidad de dar seguimiento a qué productos fueron ensamblados, vendidos o en proceso.
+        - Generación de reportes y estadísticas avanzadas.
+
+    Seguridad y Gestión de Datos
+    - El cliente ha manifestado su preocupación por la seguridad y confiabilidad del sistema, debido a que manejara información sensible de usuarios y transacciones.
+
+    Estadísticas y Reportes
+    - La empresa requiere contar con un modulo de reportes y estadísticas que permita la toma de decisiones estratégicas.
+    
+    Beneficios Esperados
+    - Organización estructurada de las ventas, ensamblajes e inventario de computadoras.
+    - Optimización de procesos de ensamblaje mediante validaciones automáticas.
+    - Transparencia en la gestión de stock y pedidos.
+    - Disponibilidad de reportes estratégicos para toma de decisiones.
+    - Seguridad en la gestión de datos de usuarios y transacciones.
+
+    Tecnologías a Utilizar
+    Php, HTML, Css, Js, o frameworks como Laravel para el backend y si usa un frontend, frameworks como React, Vue, Angular.
+
+    Importante
+    - El proyecto deberá ser individual.
+    - El enfoque debe estar en entradas, procesos y salidas, además de los reportes.
+    - Se evaluará la capacidad de aplicar pensamiento sistémico en el análisis y desarrollo.
+    - Las copias obtendrán nota de cero y se notificará a coordinación.
+    - Si se va a utilizar código de Internet, entender la funcionalidad para que se tome como válido.
+
+    Entrega
+        Componentes a entregar:
+        - Código fuente (agregar al repositorio de GitHub randysmc).
+        - Manual Técnico.
+        - Manual de Usuario.
+        - Marco Teórico.
+        - Fecha de entrega: 22/09/2025 a las 4:00 PM por srlabs. Comentar el link de su repositorio en esta publicación.
