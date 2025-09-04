@@ -11,11 +11,10 @@
 <body>
     <a href="/">Inicio</a> |
     <a href="/suma">Aplicacion de suma</a> | 
-    <a href="#">Opcion 3</a>
+    <a href="/productos">Productos</a>
     <br>
     @yield('content')
 
-    Hola soy el template
 </body>
 
 </html>
