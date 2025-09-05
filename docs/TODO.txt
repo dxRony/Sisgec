@@ -1,0 +1,34 @@
+TODO:
+- Pantalla de inicio
+
+Modulo de registro/login:
+- inicio de sesion
+- registro de clientes
+
+Modulo de administracion:
+- listar y editar clientes.
+- crear, listar y editar empleados.
+- crear, listar y editar componentes.
+- crear, listar y editar computadoras.
+- reportes
+- administracion de inventario de computadoras, componentes y personal.
+- supervision de ventas.
+- supervision de pedidos.
+
+
+Modulo de empleado:
+- vender computadora existente.
+- consulta de computadoras.
+- editar computadora existente.
+- armar computadora.
+- consulta de computadoras.
+
+
+Modulo de cliente:
+- comprar computadora existente
+- editar computadora existente
+- armar computadora
+- consulta de computadoras
+- 
+-
+-
