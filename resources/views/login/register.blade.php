@@ -40,7 +40,7 @@
 
             <div class="mb-3">
                 <label for="celular" class="form-label">Celular</label>
-                <input type="text" name="celular" class="form-control" required value="{{ old('celular') }}">
+                <input type="number" min="100" name="celular" class="form-control" required value="{{ old('celular') }}">
             </div>
 
             <div class="mb-3">

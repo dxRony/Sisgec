@@ -15,25 +15,25 @@ class RegisterController extends Controller
         return view('login.register');
     }
 
-    // Procesar registro
     public function register(Request $request)
     {
         $request->validate([
-            'nit' => 'required|integer|unique:Usuario,nit',
+            'nit' => 'required|integer|unique:users,id',
             'nombre' => 'required|string|max:100',
-            'username' => 'required|string|max:100|unique:Usuario,username',
+            'username' => 'required|string|max:100|unique:users,username',
             'password' => 'required|string|min:6|confirmed',
             'celular' => 'required|numeric',
         ]);
 
         User::create([
-            'nit' => $request->nit,
-            'nombre' => $request->nombre,
+            'id' => $request->nit,
+            'name' => $request->nombre,
             'username' => $request->username,
             'password' => Hash::make($request->password),
             'celular' => $request->celular,
+            'email' => $request->username . '@sistema.com',
             'activo' => true,
-            'rol' => 3,
+            'rol' => 2,
         ]);
 
         return redirect()->route('login')->with('success', 'Registro exitoso.');

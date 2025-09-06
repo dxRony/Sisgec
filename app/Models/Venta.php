@@ -15,13 +15,13 @@ class Venta extends Model
     // Cliente
     public function cliente(): BelongsTo
     {
-        return $this->belongsTo(Usuario::class, 'nitUsuario');
+        return $this->belongsTo(User::class, 'nitUsuario');
     }
 
     // Empleado
     public function empleado(): BelongsTo
     {
-        return $this->belongsTo(Usuario::class, 'nitEmpleado');
+        return $this->belongsTo(User::class, 'nitEmpleado');
     }
 
     // Relación con DetalleVenta

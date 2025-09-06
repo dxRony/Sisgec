@@ -20,7 +20,7 @@ class Ensamblaje extends Model
     // Relación con Usuario (empleado)
     public function empleado(): BelongsTo
     {
-        return $this->belongsTo(Usuario::class, 'idEmpleado');
+        return $this->belongsTo(User::class, 'idEmpleado');
     }
 
     // Relación con DetalleEnsamblaje
