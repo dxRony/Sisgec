@@ -1,4 +1,6 @@
 TODO:
+- migrar pk's
+- componer registro
 - Pantalla de inicio
 
 Modulo de registro/login:

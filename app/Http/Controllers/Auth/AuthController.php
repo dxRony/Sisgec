@@ -5,37 +5,43 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Models\Usuario;
-use Illuminate\Support\Facades\Hash;
-
-use function Laravel\Prompts\alert;
 
 class AuthController extends Controller
 {
-   public function showLogin()
+    public function index()
     {
         return view('login.login');
     }
 
     public function login(Request $request)
     {
-         echo "<script>alert('Todos los campos son obligatorios');</script>";
         $request->validate([
-            'username' => 'required',
-            'password' => 'required',
-        ]);
+        'username' => 'required',
+        'password' => 'required',
+    ]);
 
-        $usuario = Usuario::where('username', $request->username)->first();
+     $credentials = [
+            'username' => $request->username,
+            'password' => $request->password,
+            'activo' => 1
+        ];
 
-        if ($usuario && Hash::check($request->password, $usuario->password)) {            
-            Auth::login($usuario);
-             echo "<script>alert('Todos los campos son obligatorios');</script>";
-            return redirect()->route('dashboard');
+    if (Auth::attempt($credentials)) {
+        $request->session()->regenerate();
+        
+        $user = Auth::user();
+        
+        switch ($user->rol) {
+            case 1: return redirect()->route('admin.dashboard');
+            case 2: return redirect()->route('empleado.dashboard');
+            case 3: return redirect()->route('cliente.dashboard');
+            default:
+                Auth::logout();
+                return back()->withErrors(['login' => 'Rol no válido']);
         }
-         echo "<script>alert('Todos los campos son obligatorios');</script>";
-        return back()->withErrors([
-            'login' => 'Usuario o contraseña incorrectos',
-        ]);
+    }
+
+    return back()->withErrors(['login' => 'Credenciales incorrectas']);
     }
 
     public function logout(Request $request)

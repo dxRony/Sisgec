@@ -10,7 +10,7 @@ class Usuario extends Authenticatable
 {
     use Notifiable;
 
-    protected $table = 'Usuario';
+    protected $table = 'user';
     protected $primaryKey = 'nit';
     public $incrementing = false;
     protected $keyType = 'int';
@@ -27,10 +27,20 @@ class Usuario extends Authenticatable
     ];
 
     protected $hidden = [
-        'password'
+        'password',
+        'remember_token',
     ];
 
-    // Relaciones
+    public function getAuthIdentifierName()
+    {
+        return $this->username;
+    }
+
+    public function getAuthPassword()
+    {
+        return $this->password;
+    }
+
     public function ventasComoCliente(): HasMany
     {
         return $this->hasMany(Venta::class, 'nitUsuario');

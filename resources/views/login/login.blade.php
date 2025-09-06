@@ -18,7 +18,6 @@
             {{ $errors->first('login') }}
         </div>
         @endif
-        <!-- resources/views/login/login.blade.php -->
         <form method="POST" action="{{ route('login.post') }}">
             @csrf
             <div class="mb-3">

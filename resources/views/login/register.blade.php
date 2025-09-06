@@ -54,6 +54,8 @@
             </div>
 
             <button type="submit" class="btn btn-primary w-100">Registrarse</button>
+            <p></p>
+            <a href="/login" class="btn btn-secondary w-100">Regresar</a>
         </form>
     </div>
 </body>
