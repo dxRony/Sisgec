@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
-    <title>Cliente</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sisgec - cliente</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
 </head>
+
 <body>
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
@@ -18,16 +21,17 @@
                         <a class="nav-link active" aria-current="page" href="/cliente/dashboard">Inicio</a>
                     </li>
                     <form method="POST" action="{{ route('logout') }}" style="display:inline;">
-            @csrf
-            <button type="submit" class="nav-link active" style="color: red">Cerrar sesión</button>
-        </form>
+                        @csrf
+                        <button type="submit" class="nav-link active" style="color: red">Cerrar sesión</button>
+                    </form>
                 </ul>
             </div>
         </div>
     </nav>
-    
+
     <div class="container mt-4">
         @yield('content')
     </div>
 </body>
+
 </html>

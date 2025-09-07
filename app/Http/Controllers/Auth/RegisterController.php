@@ -33,7 +33,7 @@ class RegisterController extends Controller
             'celular' => $request->celular,
             'email' => $request->username . '@sistema.com',
             'activo' => true,
-            'rol' => 2,
+            'rol' => 3,
         ]);
 
         return redirect()->route('login')->with('success', 'Registro exitoso.');

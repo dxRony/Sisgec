@@ -54,29 +54,3 @@ Abstraccion de objetos:
 	nit int
 	idEmpleado int
 	fecha date
-
-
-bien, muchas gracias
-ahora tengo un pequeno inconveniente con la tabal user y Usuario, puesto que la tabla Usuario era una llave primaria en la tabla Venta:
-
-+-------------+---------------+------+-----+---------+----------------+
-| Field       | Type          | Null | Key | Default | Extra          |
-+-------------+---------------+------+-----+---------+----------------+
-| id          | int(11)       | NO   | PRI | NULL    | auto_increment |
-| total       | decimal(10,2) | NO   |     | NULL    |                |
-| nitUsuario  | int(11)       | NO   | MUL | NULL    |                |
-| nitEmpleado | int(11)       | NO   | MUL | NULL    |                |
-+-------------+---------------+------+-----+---------+----------------+
-aqui en esta tabla es tanto el nitUsuario, como nitEmpleado, entonces por lo tanto no puedo eliminar la tabla Usuario.
-ademas en la tabla Ensamblaje:
-+---------------+-------------+------+-----+---------+----------------+
-| Field         | Type        | Null | Key | Default | Extra          |
-+---------------+-------------+------+-----+---------+----------------+
-| id            | int(11)     | NO   | PRI | NULL    | auto_increment |
-| idComputadora | int(11)     | NO   | MUL | NULL    |                |
-| idEmpleado    | int(11)     | NO   | MUL | NULL    |                |
-| estado        | varchar(20) | NO   |     | NULL    |                |
-+---------------+-------------+------+-----+---------+----------------+
-
-en esta tabla es el idEmpleado, entonces lo que quiero es "migrar" las llaves foraneas de la tabla Usuario por la tabla user, ademas en la tabla user, el campo username debe ser UNIQUE.
-gracias

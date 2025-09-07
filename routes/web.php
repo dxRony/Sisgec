@@ -8,6 +8,7 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Cliente\DashboardController as ClienteDashboard;
 use App\Http\Controllers\Empleado\DashboardController as EmpleadoDashboard;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboard;
+use App\Http\Controllers\Admin\UserController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -29,6 +30,14 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/admin/dashboard', [AdminDashboard::class, 'index'])->name('admin.dashboard');
 });
 
+Route::prefix('admin')->middleware(['auth'])->group(function () {
+    Route::get('/usuarios/listar', [UserController::class, 'index'])->name('admin.usuarios.listar');
+    Route::get('/usuarios/registrar', [UserController::class, 'registrarV'])->name('admin.usuarios.register');
+    Route::post('/usuarios/registrar', [UserController::class, 'registrar'])->name('admin.usuarios.register.post');
+});
+
 Route::get('/register', [RegisterController::class, 'index'])->name('register');
 Route::post('/register', [RegisterController::class, 'register'])->name('register.post');
+
+
 

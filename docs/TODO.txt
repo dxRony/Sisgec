@@ -1,11 +1,4 @@
 TODO:
-- migrar pk's
-- componer registro
-- Pantalla de inicio
-
-Modulo de registro/login:
-- inicio de sesion
-- registro de clientes
 
 Modulo de administracion:
 - listar y editar clientes.
@@ -16,7 +9,6 @@ Modulo de administracion:
 - administracion de inventario de computadoras, componentes y personal.
 - supervision de ventas.
 - supervision de pedidos.
-
 
 Modulo de empleado:
 - vender computadora existente.
@@ -34,3 +26,5 @@ Modulo de cliente:
 - 
 -
 -
+
+

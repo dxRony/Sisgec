@@ -6,29 +6,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sisgec</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ asset('css/welcome.css') }}">
+    <style>
+        
+    </style>
 </head>
-
 <body>
-
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">Sisgec</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/">Inicio</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/login">Iniciar sesion</a>
-                    </li>
-                </ul>
-            </div>
+    <section class="main">
+        <div class="container">
+            <h1 class="display-3 fw-bold">¡Bienvenido a <span class="text-warning">Sisgec</span>!</h1>
+            <p class="lead mt-3">
+               Esta es una aplicacion web en la que podras realizar la compra de tu computadora, podras elegir la opcion de comprar una computadora
+                ya armada o personalizar la tuya a partir de componentes disponibles en el inventario.
+            </p>
+            <a href="{{ route('login') }}" class="btn btn-start mt-4">💻 Empezar ahora</a>
         </div>
-    </nav>
+    </section>
 
+    <footer class="bg-dark text-white text-center py-3 mt-auto">
+        <small>© {{ date('Y') }} Sisgec. Proyecto 1 - TS1</small>
+    </footer>
 </body>
 
 </html>
