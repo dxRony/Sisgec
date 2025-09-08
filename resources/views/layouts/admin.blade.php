@@ -34,18 +34,18 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Gestión de inventario</a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="/admin/productos">Listar computadoras</a></li>
-                            <li><a class="dropdown-item" href="/admin/componentes">Listar componentes</a></li>
-                            <li><a class="dropdown-item" href="/admin/componentes">Registrar componentes</a></li>
+                            <li><a class="dropdown-item" href="#">Listar computadoras</a></li>
+                            <li><a class="dropdown-item" href="#">Listar componentes</a></li>
+                            <li><a class="dropdown-item" href="#">Registrar componentes</a></li>
                         </ul>
                     </li>
 
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Visualización de reportes</a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="/admin/reportes/ventas">pendiente</a></li>
-                            <li><a class="dropdown-item" href="/admin/reportes/inventario">pendiente</a></li>
-                            <li><a class="dropdown-item" href="/admin/reportes/usuarios">pendiente</a></li>
+                            <li><a class="dropdown-item" href="#">pendiente</a></li>
+                            <li><a class="dropdown-item" href="#">pendiente</a></li>
+                            <li><a class="dropdown-item" href="#">pendiente</a></li>
                         </ul>
                     </li>
                 </ul>

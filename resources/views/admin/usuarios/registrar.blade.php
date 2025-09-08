@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('content')
-<div class="container">
+<div class="form-container">
     <h2 class="mb-4">Registrar Usuario</h2>
 
     <form action="{{ route('admin.usuarios.register.post') }}" method="POST">

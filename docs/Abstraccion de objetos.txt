@@ -1,56 +1,66 @@
 Abstraccion de objetos:
 - Usuario
 	id int
-	nombre varchar
+	name varchar
 	email varchar
-	password varchar
+	username varchar
+	password
 	celular int
+	activo bool
 	rol int
-	nit int
-	estado bool
 
 - Computadora
-	id int
-	codigoUnico varchar
+	id int	
 	disponibilidad int
+	personalizada boolean - OJOOOOOOOOOOOOOOOOO
 
 - Ensamblaje
 	id int 
 	idComputadora int
+	idEmpleado int
 	estado varchar
+
+- DetalleEnsamblaje
+	idEnsamblaje int
+	idComponente int
+	idComponente int
 
 - Componente
 	id int
-	idEnsamblaje
 	tipoComponente varchar	(procesador, memoriaRAM, almacenamiento, fuenteDePoder, gabinete)
 	marca varchar
-	consumoEnergetico int 	(procesador, ram, almacenamiento, )
+	consumoEnergetico int 	(procesador, ram, almacenamiento)
 	nucleos int 			(procesador)
-	velocidad int 			(procesador, ram, )
-	capacidad int 			(ram, almacenamiento, )
-	tipo varchar 			(ram, almacenamiento, )
-	potencia int 			(fuenteDePoder, )
-	eficiencia varchar		(fuenteDePoder, )
-	color varchar			(gabinete, )
+	velocidad int 			(procesador, ram)
+	capacidad int 			(ram, almacenamiento)
+	tipo varchar 			(ram, almacenamiento)
+	potencia int 			(fuenteDePoder)
+	eficiencia varchar		(fuenteDePoder)
+	color varchar			(gabinete)
 	stock int
 	precio int
+
+- ComponenteComputadora
+	- idComputadora int
+	- idComponente int
+	- cantidad int
 
 - Venta
 	id int
 	total int
-	idUsuario int
-	idEmpleado int
+	nitUsuario int
+	nitEmpleado int
 
 - DetalleVenta
 	id int
 	idVenta int
+	idComputadora int
+	idComponente int
+	cantidad int
 	subtotal int
 
 - Factura
 	id int
-	idVenta int
-	total int
-	idUsuario int
+	idVenta int	
 	nit int
-	idEmpleado int
 	fecha date

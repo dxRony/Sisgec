@@ -24,7 +24,7 @@ class UserController extends Controller
     {
         $request->validate([
             'id' => 'required|numeric|unique:users,id',
-            'name' => 'required|string|max:255',            
+            'name' => 'required|string|max:255',
             'username' => 'required|string|unique:users,username',
             'password' => 'required|min:6|confirmed',
             'celular' => 'nullable|string|max:20',
@@ -41,8 +41,32 @@ class UserController extends Controller
             'activo' => true,
             'rol' => $request->rol,
         ]);
-        
-
         return redirect()->route('admin.usuarios.listar')->with('success', 'Usuario registrado correctamente.');
+    }
+
+    public function editarV($id)
+    {
+        $usuario = User::findOrFail($id);
+        return view('admin.usuarios.editar', compact('usuario'));
+    }
+
+    public function editar(Request $request, $id)
+    {
+        $usuario = User::findOrFail($id);
+
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'username' => 'required|string|unique:users,username,' . $usuario->id,
+            'celular' => 'nullable|string|max:20',
+            'activo' => 'required|boolean',
+        ]);
+
+        $usuario->update([
+            'name' => $request->name,
+            'username' => $request->username,
+            'celular' => $request->celular,
+            'activo' => $request->activo,
+        ]);
+        return redirect()->route('admin.usuarios.listar')->with('success', 'Usuario actualizado correctamente.');
     }
 }

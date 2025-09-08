@@ -1,30 +1,17 @@
 TODO:
 
 Modulo de administracion:
-- listar y editar clientes.
-- crear, listar y editar empleados.
 - crear, listar y editar componentes.
 - crear, listar y editar computadoras.
-- reportes
-- administracion de inventario de computadoras, componentes y personal.
-- supervision de ventas.
-- supervision de pedidos.
+- reportes (supervision de ventas, supervision de pedidos, supervision de quejas y sugerencias).
 
 Modulo de empleado:
-- vender computadora existente.
-- consulta de computadoras.
-- editar computadora existente.
-- armar computadora.
-- consulta de computadoras.
-
+- crear, listar y editar clientes.
+- listar computadoras armadas y componentes.
+- realizar venta de computadoras (armadas, personalizadas, desde cero).
+- listar y editar trabajos.
 
 Modulo de cliente:
-- comprar computadora existente
-- editar computadora existente
-- armar computadora
-- consulta de computadoras
-- 
--
--
-
-
+- comprar computadora (armada, personalizada, desde cero).
+- listar computadoras armadas y componentes.
+- registrar queja y sugerencia
