@@ -29,12 +29,9 @@
                 <td>{{ $usuario->username }}</td>
                 <td>{{ $usuario->celular }}</td>
                 <td>
-                    @if ($usuario->rol == 1)
-                    Administrador
-                    @elseif ($usuario->rol == 2)
-                    Empleado
-                    @elseif ($usuario->rol == 3)
-                    Cliente
+                    @if ($usuario->rol == 1) Administrador
+                    @elseif ($usuario->rol == 2) Empleado
+                    @elseif ($usuario->rol == 3) Cliente
                     @endif
                 </td>
                 <td>{{ $usuario->activo ? 'Sí' : 'No' }}</td>

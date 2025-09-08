@@ -32,9 +32,9 @@ class AuthController extends Controller
         $user = Auth::user();
         
         switch ($user->rol) {
-            case 1: return redirect()->route('admin.dashboard');
-            case 2: return redirect()->route('empleado.dashboard');
-            case 3: return redirect()->route('cliente.dashboard');
+            case 1: return redirect()->route('admin.index');
+            case 2: return redirect()->route('empleado.index');
+            case 3: return redirect()->route('cliente.index');
             default:
                 Auth::logout();
                 return back()->withErrors(['login' => 'Rol no válido']);

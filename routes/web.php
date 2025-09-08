@@ -25,9 +25,9 @@ Route::post('/login', [AuthController::class, 'login'])->name('login.post');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/cliente/dashboard', [ClienteDashboard::class, 'index'])->name('cliente.dashboard');
-    Route::get('/empleado/dashboard', [EmpleadoDashboard::class, 'index'])->name('empleado.dashboard');
-    Route::get('/admin/dashboard', [AdminDashboard::class, 'index'])->name('admin.dashboard');
+    Route::get('/cliente/index', [ClienteDashboard::class, 'index'])->name('cliente.index');
+    Route::get('/empleado/index', [EmpleadoDashboard::class, 'index'])->name('empleado.index');
+    Route::get('/admin/index', [AdminDashboard::class, 'index'])->name('admin.index');
 });
 
 Route::prefix('admin')->middleware(['auth'])->group(function () {

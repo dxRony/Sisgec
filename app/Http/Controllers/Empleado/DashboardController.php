@@ -10,7 +10,7 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        return view('empleado.dashboard', [
+        return view('empleado.index', [
             'usuario' => Auth::user()
         ]);
     }

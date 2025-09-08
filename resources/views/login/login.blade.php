@@ -30,8 +30,8 @@
             </div>
             <button type="submit" class="btn btn-primary">Iniciar sesion</button>
             <p></p>
-            <a href="/" class="btn btn-secondary">Regresar</a>
-            <a href="{{ route('register') }}">Registrarse?</a>
+            <a href="/" class="btn btn-secondary">Volver al inicio</a>
+            <a href="{{ route('register') }}">¿Registrarse?</a>
         </form>
     </div>
 
