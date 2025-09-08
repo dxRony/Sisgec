@@ -1,7 +1,6 @@
 TODO:
 
 Modulo de administracion:
-- crear, listar y editar componentes.
 - crear, listar y editar computadoras.
 - reportes (supervision de ventas, supervision de pedidos, supervision de quejas y sugerencias).
 
