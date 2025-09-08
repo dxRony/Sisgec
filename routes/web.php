@@ -8,6 +8,7 @@ use App\Http\Controllers\Empleado\DashboardController as EmpleadoDashboard;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboard;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\ComponenteController;
+use App\Http\Controllers\Admin\ComputadoraController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -39,4 +40,6 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
     Route::get('/componentes/{id}/editar', [ComponenteController::class, 'editarV'])->name('admin.componentes.edit');
     Route::post('/componentes/{id}/editar', [ComponenteController::class, 'editar'])->name('admin.componentes.update');
     Route::delete('/componentes/{id}', [ComponenteController::class, 'eliminar'])->name('admin.componentes.destroy');
+
+    Route::resource('computadoras', ComputadoraController::class);
 });

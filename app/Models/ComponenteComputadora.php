@@ -10,7 +10,6 @@ class ComponenteComputadora extends Model
     protected $table = 'ComponenteComputadora';
     public $timestamps = false;
 
-    // La clave primaria es compuesta (idComputadora, idComponente), así que desactivamos incrementing
     protected $primaryKey = null;
     public $incrementing = false;
 
@@ -20,13 +19,11 @@ class ComponenteComputadora extends Model
         'cantidad'
     ];
 
-    // Relación con Computadora
     public function computadora(): BelongsTo
     {
         return $this->belongsTo(Computadora::class, 'idComputadora');
     }
 
-    // Relación con Componente
     public function componente(): BelongsTo
     {
         return $this->belongsTo(Componente::class, 'idComponente');

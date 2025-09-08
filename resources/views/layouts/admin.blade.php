@@ -35,8 +35,9 @@
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Gestión de inventario</a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="#">Listar computadoras</a></li>
+                            <li><a class="dropdown-item" href="/admin/computadoras/registrar">Registrar computadora</a></li>
                             <li><a class="dropdown-item" href="/admin/componentes/listar">Listar componentes</a></li>
-                            <li><a class="dropdown-item" href="/admin/componentes/registrar">Registrar componentes</a></li>
+                            <li><a class="dropdown-item" href="/admin/componentes/registrar">Registrar componente</a></li>
                         </ul>
                     </li>
 

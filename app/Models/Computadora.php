@@ -9,22 +9,22 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 class Computadora extends Model
 {
     protected $table = 'Computadora';
-    protected $fillable = ['disponibilidad'];
+    protected $fillable = [
+        'disponibilidad',
+        'personalizada'
+    ];
 
-    // Relación con Ensamblaje
     public function ensamblajes(): HasMany
     {
         return $this->hasMany(Ensamblaje::class, 'idComputadora');
     }
 
-    // Relación con Componente (N-N)
     public function componentes(): BelongsToMany
     {
         return $this->belongsToMany(Componente::class, 'ComponenteComputadora', 'idComputadora', 'idComponente')
             ->withPivot('cantidad');
     }
 
-    // Relación con DetalleVenta
     public function detallesVenta(): HasMany
     {
         return $this->hasMany(DetalleVenta::class, 'idComputadora');

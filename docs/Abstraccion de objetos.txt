@@ -28,17 +28,17 @@ Abstraccion de objetos:
 - Componente
 	id int
 	tipoComponente varchar	(procesador, memoriaRAM, almacenamiento, fuenteDePoder, gabinete)
-	marca varchar
+	marca varchar			(todos)
 	consumoEnergetico int 	(procesador, ram, almacenamiento)
 	nucleos int 			(procesador)
-	velocidad int 			(procesador, ram)
+	velocidad decimal(10,2) (procesador, ram)
 	capacidad int 			(ram, almacenamiento)
 	tipo varchar 			(ram, almacenamiento)
 	potencia int 			(fuenteDePoder)
 	eficiencia varchar		(fuenteDePoder)
 	color varchar			(gabinete)
-	stock int
-	precio int
+	stock int				(todos)
+	precio decimal(10,2)	(todos)
 
 - ComponenteComputadora
 	- idComputadora int
