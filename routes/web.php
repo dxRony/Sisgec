@@ -28,18 +28,22 @@ Route::middleware(['auth'])->group(function () {
 });
 //rutas de admin
 Route::prefix('admin')->middleware(['auth'])->group(function () {
+    //usuarios
     Route::get('/usuarios/listar', [UserController::class, 'index'])->name('admin.usuarios.listar');
     Route::get('/usuarios/registrar', [UserController::class, 'registrarV'])->name('admin.usuarios.register');
     Route::post('/usuarios/registrar', [UserController::class, 'registrar'])->name('admin.usuarios.register.post');
     Route::get('/usuarios/{id}/editar', [UserController::class, 'editarV'])->name('admin.usuarios.edit');
     Route::put('/usuarios/{id}', [UserController::class, 'editar'])->name('admin.usuarios.edit.put');
-
+    //componentes
     Route::get('/componentes/listar', [ComponenteController::class, 'listar'])->name('admin.componentes.listar');
     Route::get('/componentes/registrar', [ComponenteController::class, 'registrarV'])->name('admin.componentes.registrar');
     Route::post('/componentes/registrar', [ComponenteController::class, 'registrar'])->name('admin.componentes.registrar.post');
     Route::get('/componentes/{id}/editar', [ComponenteController::class, 'editarV'])->name('admin.componentes.edit');
     Route::post('/componentes/{id}/editar', [ComponenteController::class, 'editar'])->name('admin.componentes.update');
     Route::delete('/componentes/{id}', [ComponenteController::class, 'eliminar'])->name('admin.componentes.destroy');
-
-    Route::resource('computadoras', ComputadoraController::class);
+    //computadoras
+    Route::get('/computadoras/listar', [ComputadoraController::class, 'listar'])->name('admin.computadoras.listar');
+    Route::get('/computadoras/registrar', [ComputadoraController::class, 'registrarV'])->name('admin.computadoras.register');
+    Route::post('/computadoras/registrar', [ComputadoraController::class, 'registrar'])->name('admin.computadoras.register.post');
+    
 });

@@ -1,39 +1,78 @@
 @extends('layouts.admin')
 
 @section('content')
-<div class="container">
-    <h2>Registrar Computadora</h2>
+<div class="form-container">
+    <h2 class="mb-4">Registrar Computadora</h2>
 
-    <form action="{{ route('computadoras.store') }}" method="POST">
+    @if($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach($errors->all() as $error)
+            <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+    @endif
+
+    <form action="{{ route('admin.computadoras.register.post') }}" method="POST">
         @csrf
-
         <div class="mb-3">
-            <label class="form-label">Disponibilidad (inventario)</label>
-            <input type="number" name="disponibilidad" class="form-control" required>
+            <label for="disponibilidad" class="form-label">Disponibilidad</label>
+            <input type="number" name="disponibilidad" class="form-control" required min="1">
         </div>
-
+        <h4>Seleccionar componentes</h4>
         <div class="mb-3">
-            <label class="form-label">Personalizada</label>
-            <select name="personalizada" class="form-select" required>
-                <option value="0">No</option>
-                <option value="1">Sí</option>
+            <label class="form-label">Procesador</label>
+            <select name="componentes[procesador]" class="form-select">
+                <option value="">-- Seleccionar procesador --</option>
+                @foreach($procesadores as $procesador)
+                <option value="{{ $procesador->id }}">{{ $procesador->marca }} - {{ $procesador->velocidad }} GHz</option>
+                @endforeach
             </select>
         </div>
-
-        <h4>Componentes</h4>
-        @foreach($componentes as $componente)
-            <div class="row mb-2">
-                <div class="col-md-6">
-                    <input type="checkbox" name="componentes[]" value="{{ $componente->id }}">
-                    {{ $componente->tipoComponente }} - {{ $componente->marca }}
-                </div>
-                <div class="col-md-6">
-                    <input type="number" name="cantidades[]" class="form-control" placeholder="Cantidad">
-                </div>
+        <div class="mb-3">
+            <label class="form-label">Fuente de Poder</label>
+            <select name="componentes[fuente]" class="form-select">
+                <option value="">-- Seleccionar fuente de poder --</option>
+                @foreach($fuentes as $fuente)
+                <option value="{{ $fuente->id }}">{{ $fuente->marca }} - {{ $fuente->potencia }}W</option>
+                @endforeach
+            </select>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Gabinete</label>
+            <select name="componentes[gabinete]" class="form-select">
+                <option value="">-- Seleccionar gabinete --</option>
+                @foreach($gabinetes as $gabinete)
+                <option value="{{ $gabinete->id }}">{{ $gabinete->marca }} - {{ $gabinete->color }}</option>
+                @endforeach
+            </select>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Memoria RAM</label>
+            @foreach($rams as $ram)
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="componentes[rams][{{ $ram->id }}]" value="1">
+                <label class="form-check-label">
+                    {{ $ram->marca }} - {{ $ram->capacidad }}GB - {{ $ram->tipo }}
+                </label>
+                <input type="number" name="cantidades[rams][{{ $ram->id }}]" min="1" placeholder="Cantidad">
             </div>
-        @endforeach
-
-        <button type="submit" class="btn btn-primary">Guardar</button>
+            @endforeach
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Almacenamiento</label>
+            @foreach($storages as $storage)
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="componentes[storages][{{ $storage->id }}]" value="1">
+                <label class="form-check-label">
+                    {{ $storage->marca }} - {{ $storage->capacidad }}GB - {{ $storage->tipo }}
+                </label>
+                <input type="number" name="cantidades[storages][{{ $storage->id }}]" min="1" placeholder="Cantidad">
+            </div>
+            @endforeach
+        </div>
+        <button type="submit" class="btn btn-primary">Registrar Computadora</button>
     </form>
 </div>
 @endsection

@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 class Computadora extends Model
 {
     protected $table = 'Computadora';
+    public $timestamps = false;
     protected $fillable = [
         'disponibilidad',
         'personalizada'

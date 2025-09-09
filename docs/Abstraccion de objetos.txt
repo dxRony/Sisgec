@@ -12,7 +12,7 @@ Abstraccion de objetos:
 - Computadora
 	id int	
 	disponibilidad int
-	personalizada boolean - OJOOOOOOOOOOOOOOOOO
+	personalizada boolean
 
 - Ensamblaje
 	id int 

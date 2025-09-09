@@ -1,7 +1,7 @@
 TODO:
 
 Modulo de administracion:
-- crear, listar y editar computadoras.
+- editar y eliminar computadoras.
 - reportes (supervision de ventas, supervision de pedidos, supervision de quejas y sugerencias).
 
 Modulo de empleado:
@@ -14,3 +14,4 @@ Modulo de cliente:
 - comprar computadora (armada, personalizada, desde cero).
 - listar computadoras armadas y componentes.
 - registrar queja y sugerencia
+- carrito de compras
