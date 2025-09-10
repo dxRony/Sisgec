@@ -6,9 +6,16 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Cliente\DashboardController as ClienteDashboard;
 use App\Http\Controllers\Empleado\DashboardController as EmpleadoDashboard;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboard;
-use App\Http\Controllers\Admin\UserController;
-use App\Http\Controllers\Admin\ComponenteController;
-use App\Http\Controllers\Admin\ComputadoraController;
+use App\Http\Controllers\Admin\UserController as AdminUserController;
+use App\Http\Controllers\Admin\ComponenteController as AdminComponenteController;
+use App\Http\Controllers\Admin\ComputadoraController as AdminComputerController;
+
+use App\Http\Controllers\Empleado\ClienteController as EmpleadoUserController;
+use App\Http\Controllers\Empleado\ComputadoraController as EmpleadoComputerController;
+use App\Http\Controllers\Empleado\ComponenteController as EmpleadoComponenteController;
+
+use App\Http\Controllers\Cliente\ComponenteController as ClienteComponenteController;
+use App\Http\Controllers\Cliente\ComputadoraController as ClienteComputerController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -29,23 +36,43 @@ Route::middleware(['auth'])->group(function () {
 //rutas de admin
 Route::prefix('admin')->middleware(['auth'])->group(function () {
     //usuarios
-    Route::get('/usuarios/listar', [UserController::class, 'index'])->name('admin.usuarios.listar');
-    Route::get('/usuarios/registrar', [UserController::class, 'registrarV'])->name('admin.usuarios.register');
-    Route::post('/usuarios/registrar', [UserController::class, 'registrar'])->name('admin.usuarios.register.post');
-    Route::get('/usuarios/{id}/editar', [UserController::class, 'editarV'])->name('admin.usuarios.edit');
-    Route::put('/usuarios/{id}', [UserController::class, 'editar'])->name('admin.usuarios.edit.put');
+    Route::get('/usuarios/listar', [AdminUserController::class, 'index'])->name('admin.usuarios.listar');
+    Route::get('/usuarios/registrar', [AdminUserController::class, 'registrarV'])->name('admin.usuarios.register');
+    Route::post('/usuarios/registrar', [AdminUserController::class, 'registrar'])->name('admin.usuarios.register.post');
+    Route::get('/usuarios/{id}/editar', [AdminUserController::class, 'editarV'])->name('admin.usuarios.edit');
+    Route::put('/usuarios/{id}', [AdminUserController::class, 'editar'])->name('admin.usuarios.edit.put');
     //componentes
-    Route::get('/componentes/listar', [ComponenteController::class, 'listar'])->name('admin.componentes.listar');
-    Route::get('/componentes/registrar', [ComponenteController::class, 'registrarV'])->name('admin.componentes.registrar');
-    Route::post('/componentes/registrar', [ComponenteController::class, 'registrar'])->name('admin.componentes.registrar.post');
-    Route::get('/componentes/{id}/editar', [ComponenteController::class, 'editarV'])->name('admin.componentes.edit');
-    Route::post('/componentes/{id}/editar', [ComponenteController::class, 'editar'])->name('admin.componentes.update');
-    Route::delete('/componentes/{id}', [ComponenteController::class, 'eliminar'])->name('admin.componentes.destroy');
+    Route::get('/componentes/listar', [AdminComponenteController::class, 'listar'])->name('admin.componentes.listar');
+    Route::get('/componentes/registrar', [AdminComponenteController::class, 'registrarV'])->name('admin.componentes.registrar');
+    Route::post('/componentes/registrar', [AdminComponenteController::class, 'registrar'])->name('admin.componentes.registrar.post');
+    Route::get('/componentes/{id}/editar', [AdminComponenteController::class, 'editarV'])->name('admin.componentes.edit');
+    Route::post('/componentes/{id}/editar', [AdminComponenteController::class, 'editar'])->name('admin.componentes.update');
+    Route::delete('/componentes/{id}', [AdminComponenteController::class, 'eliminar'])->name('admin.componentes.destroy');
     //computadoras
-    Route::get('/computadoras/listar', [ComputadoraController::class, 'listar'])->name('admin.computadoras.listar');
-    Route::get('/computadoras/registrar', [ComputadoraController::class, 'registrarV'])->name('admin.computadoras.register');
-    Route::post('/computadoras/registrar', [ComputadoraController::class, 'registrar'])->name('admin.computadoras.register.post');
-    Route::get('/computadoras/{id}/editar', [ComputadoraController::class, 'editarV'])->name('admin.computadoras.edit');
-    Route::put('/computadoras/{id}', [ComputadoraController::class, 'editar'])->name('admin.computadoras.update');
-    Route::delete('/computadoras/{id}', [ComputadoraController::class, 'eliminar'])->name('admin.computadoras.destroy');
+    Route::get('/computadoras/listar', [AdminComputerController::class, 'listar'])->name('admin.computadoras.listar');
+    Route::get('/computadoras/registrar', [AdminComputerController::class, 'registrarV'])->name('admin.computadoras.register');
+    Route::post('/computadoras/registrar', [AdminComputerController::class, 'registrar'])->name('admin.computadoras.register.post');
+    Route::get('/computadoras/{id}/editar', [AdminComputerController::class, 'editarV'])->name('admin.computadoras.edit');
+    Route::put('/computadoras/{id}', [AdminComputerController::class, 'editar'])->name('admin.computadoras.update');
+    Route::delete('/computadoras/{id}', [AdminComputerController::class, 'eliminar'])->name('admin.computadoras.destroy');
+});
+//rutas de empleado
+Route::prefix('empleado')->middleware(['auth'])->group(function () {
+    //clientes
+    Route::get('/clientes/listar', [EmpleadoUserController::class, 'listar'])->name('empleado.clientes.listar');
+    Route::get('/clientes/registrar', [EmpleadoUserController::class, 'registrarV'])->name('empleado.clientes.register');
+    Route::post('/clientes/registrar', [EmpleadoUserController::class, 'registrar'])->name('empleado.clientes.register.post');
+    Route::get('/clientes/{id}/editar', [EmpleadoUserController::class, 'editarV'])->name('empleado.clientes.edit');
+    Route::put('/clientes/{id}', [EmpleadoUserController::class, 'editar'])->name('empleado.clientes.edit.put');
+    //componentes
+    Route::get('/componentes/listar', [EmpleadoComponenteController::class, 'listar'])->name('empleado.componentes.listar');
+    //computadoras
+    Route::get('/computadoras/listar', [EmpleadoComputerController::class, 'listar'])->name('empleado.computadoras.listar');
+});
+//rutas de cliente
+Route::prefix('cliente')->middleware(['auth'])->group(function () {
+    //componentes
+    Route::get('/componentes/listar', [ClienteComponenteController::class, 'listar'])->name('cliente.componentes.listar');
+    //computadoras
+    Route::get('/computadoras/listar', [ClienteComputerController::class, 'listar'])->name('empleado.computadoras.listar');
 });

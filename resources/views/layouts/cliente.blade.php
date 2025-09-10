@@ -35,8 +35,8 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Consulta de inventario</a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Computadoras armadas</a></li>
-                            <li><a class="dropdown-item" href="#">Componentes en inventario</a></li>                        
+                            <li><a class="dropdown-item" href="/cliente/computadoras/listar">Computadoras armadas</a></li>
+                            <li><a class="dropdown-item" href="/cliente/componentes/listar">Componentes en inventario</a></li>                        
                         </ul>
                     </li>
 

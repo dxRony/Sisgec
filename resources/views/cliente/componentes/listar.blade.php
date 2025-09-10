@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.cliente')
 
 @section('content')
 <div class="container">
@@ -24,7 +24,6 @@
                 <th>Color</th>
                 <th>Stock</th>
                 <th>Precio</th>                
-                <th>Accion</th>
             </tr>
         </thead>
         <tbody>
@@ -49,19 +48,6 @@
                 <td>{{ $componente->color ?? '-' }}</td>
                 <td>{{ $componente->stock }}</td>
                 <td>Q.{{ $componente->precio }}</td>
-                <td>
-                    <a href="{{ route('admin.componentes.edit', $componente->id) }}" 
-                       class="btn btn-warning btn-sm">Editar</a>
-
-                    <form action="{{ route('admin.componentes.destroy', $componente->id) }}" 
-                          method="POST" 
-                          style="display:inline-block;"
-                          onsubmit="return confirm('Eliminar el componente: {{$componente->tipoComponente}}, en caso de tener datos incorrectos');">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
-                    </form>
-                </td>
             </tr>
             @endforeach
         </tbody>
