@@ -70,6 +70,15 @@
                         </tbody>
                     </table>
                 </td>
+                <td>
+                    <a href="{{ route('admin.computadoras.edit', $comp->id) }}" class="btn btn-warning btn-sm">Modificar sotck</a>
+
+                    <form action="{{ route('admin.computadoras.destroy', $comp->id) }}" method="POST" style="display:inline-block;" onsubmit="return confirm('Eliminar la computadora, en caso de tener datos incorrectos');">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                    </form>
+                </td>
             </tr>
             @endforeach
         </tbody>

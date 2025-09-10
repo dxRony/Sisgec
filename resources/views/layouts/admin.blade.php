@@ -50,7 +50,6 @@
                         </ul>
                     </li>
                 </ul>
-
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
                         <form method="POST" action="{{ route('logout') }}">

@@ -1,7 +1,6 @@
 TODO:
 
 Modulo de administracion:
-- editar y eliminar computadoras.
 - reportes (supervision de ventas, supervision de pedidos, supervision de quejas y sugerencias).
 
 Modulo de empleado:

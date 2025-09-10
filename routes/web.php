@@ -45,5 +45,7 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
     Route::get('/computadoras/listar', [ComputadoraController::class, 'listar'])->name('admin.computadoras.listar');
     Route::get('/computadoras/registrar', [ComputadoraController::class, 'registrarV'])->name('admin.computadoras.register');
     Route::post('/computadoras/registrar', [ComputadoraController::class, 'registrar'])->name('admin.computadoras.register.post');
-    
+    Route::get('/computadoras/{id}/editar', [ComputadoraController::class, 'editarV'])->name('admin.computadoras.edit');
+    Route::put('/computadoras/{id}', [ComputadoraController::class, 'editar'])->name('admin.computadoras.update');
+    Route::delete('/computadoras/{id}', [ComputadoraController::class, 'eliminar'])->name('admin.computadoras.destroy');
 });

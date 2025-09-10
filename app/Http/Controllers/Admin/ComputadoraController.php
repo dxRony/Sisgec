@@ -59,7 +59,7 @@ class ComputadoraController extends Controller
             'personalizada' => false,
         ]);
 
-        // relacionando componentes fijos
+        // relacionando componentes
         $computadora->componentes()->attach($request->componentes['procesador'], ['cantidad' => 1]);
         $computadora->componentes()->attach($request->componentes['fuente'], ['cantidad' => 1]);
         $computadora->componentes()->attach($request->componentes['gabinete'], ['cantidad' => 1]);
@@ -82,5 +82,36 @@ class ComputadoraController extends Controller
 
         return redirect()->route('admin.computadoras.listar')
             ->with('success', 'Computadora registrada correctamente.');
+    }
+
+    public function editarV($id)
+    {
+        $computadora = Computadora::with('componentes')->findOrFail($id);
+        $componentes = Componente::all();
+
+        return view('admin.computadoras.editar', compact('computadora', 'componentes'));
+    }
+
+    public function editar(Request $request, $id)
+    {
+        $computadora = Computadora::findOrFail($id);
+
+        $request->validate([
+            'disponibilidad' => 'required|integer|min:1',
+        ]);
+
+        $computadora->update([
+            'disponibilidad' => $request->disponibilidad,
+        ]);
+
+        return redirect()->route('admin.computadoras.listar')->with('success', 'Computadora actualizada correctamente.');
+    }
+
+    public function eliminar($id)
+    {
+        $computadora = Computadora::findOrFail($id);
+        $computadora->delete();
+
+        return redirect()->route('admin.computadoras.listar')->with('success', 'Computadora eliminada correctamente.');
     }
 }
