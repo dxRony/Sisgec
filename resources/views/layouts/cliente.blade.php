@@ -27,7 +27,7 @@
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Compra tu computadora</a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="/cliente/computadoras/listar">Computadoras armadas</a></li>
-                            <li><a class="dropdown-item" href="#">Arma tu computadora desde cero</a></li>
+                            <li><a class="dropdown-item" href="/cliente/computadoras/registrar">Arma tu computadora desde cero</a></li>
                         </ul>
                     </li>
 

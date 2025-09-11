@@ -8,5 +8,8 @@ Modulo de empleado:
 - listar y editar trabajos (Ensamblaje where idEmpleado === this.id).
 
 Modulo de cliente:
-- comprar computadora (armada, personalizada, desde cero).
+- consultar existencias de componentes al registrar computadora desde cero y agregar al carrito.
+- consultar existencias de componentes al personalizar computadora y agregar al carrito.
+- consultar existencias de computadoras armadas al agregar al carrito.
+- comprar computadora (armada, personalizada, desde cero), disminuir existencias
 - registrar queja y sugerencia

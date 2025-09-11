@@ -1,8 +1,8 @@
-@extends('layouts.admin')
+@extends('layouts.cliente')
 
 @section('content')
 <div class="form-container">
-    <h2 class="mb-4">Registrar Computadora</h2>
+    <h2 class="mb-4">Armar computadora desde cero</h2>
 
     @if($errors->any())
     <div class="alert alert-danger">
@@ -14,13 +14,9 @@
     </div>
     @endif
 
-    <form action="{{ route('admin.computadoras.register.post') }}" method="POST">
+    <form action="{{ route('cliente.computadoras.register.post') }}" method="POST">
         @csrf
-        <div class="mb-3">
-            <label for="disponibilidad" class="form-label">Disponibilidad</label>
-            <input type="number" name="disponibilidad" class="form-control" required min="1">
-        </div>
-        <h4>Seleccionar componentes</h4>
+        <h4>Selecciona sus componentes</h4>
         <div class="mb-3">
             <label class="form-label">Procesador</label>
             <select name="componentes[procesador]" class="form-select">
@@ -72,8 +68,8 @@
             </div>
             @endforeach
         </div>
-        <button type="submit" class="btn btn-primary">Registrar Computadora</button>
-        <a href="{{ route('admin.usuarios.listar') }}" class="btn btn-secondary">Cancelar</a>
+        <button type="submit" class="btn btn-primary">Agregar al carrito</button>
+        <a href="{{ route('cliente.index') }}" class="btn btn-secondary">Cancelar</a>
     </form>
 </div>
 @endsection

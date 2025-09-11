@@ -78,6 +78,8 @@ Route::prefix('cliente')->middleware(['auth'])->group(function () {
     Route::get('/computadoras/listar', [ClienteComputerController::class, 'listar'])->name('empleado.computadoras.listar');
     Route::get('/computadoras/personalizar/{id}', [ClienteComputerController::class, 'personalizarV'])->name('cliente.computadoras.personalizar');
     Route::post('/computadoras/guardarPersonalizada/{id}', [ClienteComputerController::class, 'guardarPersonalizada'])->name('cliente.computadoras.guardarPersonalizada');
+    Route::get('/computadoras/registrar', [ClienteComputerController::class, 'registrarV'])->name('cliente.computadoras.register');
+    Route::post('/computadoras/registrar', [ClienteComputerController::class, 'registrar'])->name('cliente.computadoras.register.post');
     //carrito
     Route::get('/carrito', [CarritoController::class, 'index'])->name('carrito.index');
     Route::post('/carrito/agregar/{id}', [CarritoController::class, 'agregar'])->name('carrito.agregar');

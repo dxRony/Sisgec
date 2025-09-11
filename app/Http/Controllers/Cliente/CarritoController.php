@@ -18,6 +18,10 @@ class CarritoController extends Controller
     public function agregar($id)
     {
         $computadora = Computadora::with('componentes')->findOrFail($id);
+        //validadno stock
+        if ($computadora->disponibilidad < 1) {
+            return redirect()->back()->withErrors(['stock' => 'No hay disponibilidad de esta computadora.']);
+        }
 
         $precioTotal = 0;
         foreach ($computadora->componentes as $c) {

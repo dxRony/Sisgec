@@ -41,7 +41,7 @@ class ComputadoraController extends Controller
             'componentes.fuente' => 'nullable|integer|exists:Componente,id',
             'componentes.gabinete' => 'nullable|integer|exists:Componente,id',
         ]);
-        //validando componentes
+
         if (empty($request->componentes['procesador'])) {
             return back()->withErrors(['procesador' => 'Debe seleccionar un procesador.']);
         }
@@ -54,30 +54,56 @@ class ComputadoraController extends Controller
             return back()->withErrors(['gabinete' => 'Debe seleccionar un gabinete.']);
         }
 
-        $computadora = Computadora::create([
-            'disponibilidad' => $request->disponibilidad,
-            'personalizada' => false,
-        ]);
+        $disponibilidad = $request->disponibilidad;
 
-        // relacionando componentes
-        $computadora->componentes()->attach($request->componentes['procesador'], ['cantidad' => 1]);
-        $computadora->componentes()->attach($request->componentes['fuente'], ['cantidad' => 1]);
-        $computadora->componentes()->attach($request->componentes['gabinete'], ['cantidad' => 1]);
+        // Recolectamos todos los componentes a usar
+        $componentes = [
+            ['id' => $request->componentes['procesador'], 'cantidad' => 1],
+            ['id' => $request->componentes['fuente'], 'cantidad' => 1],
+            ['id' => $request->componentes['gabinete'], 'cantidad' => 1],
+        ];
 
-        // relacionando memorias RAM
         if (!empty($request->componentes['rams'])) {
             foreach ($request->componentes['rams'] as $idRam => $val) {
                 $cantidad = $request->cantidades['rams'][$idRam] ?? 1;
-                $computadora->componentes()->attach($idRam, ['cantidad' => $cantidad]);
+                $componentes[] = ['id' => $idRam, 'cantidad' => $cantidad];
             }
         }
 
-        // relacionando almacenamientos
         if (!empty($request->componentes['storages'])) {
             foreach ($request->componentes['storages'] as $idStorage => $val) {
                 $cantidad = $request->cantidades['storages'][$idStorage] ?? 1;
-                $computadora->componentes()->attach($idStorage, ['cantidad' => $cantidad]);
+                $componentes[] = ['id' => $idStorage, 'cantidad' => $cantidad];
             }
+        }
+
+        // validando stock de los componentes
+        foreach ($componentes as $c) {
+            $comp = Componente::findOrFail($c['id']);
+            $cantidadNecesaria = $c['cantidad'] * $disponibilidad;
+
+            if ($comp->stock < $cantidadNecesaria) {
+                return back()->withErrors([
+                    'stock' => "El componente {$comp->tipoComponente} ({$comp->marca}) no tiene suficiente stock. 
+                            Stock actual: {$comp->stock}, requerido: {$cantidadNecesaria}."
+                ]);
+            }
+        }
+
+        //si hay stock suficiente, se crea la computadora
+        $computadora = Computadora::create([
+            'disponibilidad' => $disponibilidad,
+            'personalizada' => false,
+        ]);
+
+        // relacionando componentes y descontando stock
+        foreach ($componentes as $c) {
+            $comp = Componente::findOrFail($c['id']);
+            $computadora->componentes()->attach($comp->id, ['cantidad' => $c['cantidad']]);
+
+            // Descontar stock
+            $comp->stock -= $c['cantidad'] * $disponibilidad;
+            $comp->save();
         }
 
         return redirect()->route('admin.computadoras.listar')
