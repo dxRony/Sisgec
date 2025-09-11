@@ -1,16 +1,12 @@
 TODO:
 
 Modulo de administracion:
-- precio de computadora (suma de precios de componentes).
 - reportes (supervision de ventas, supervision de pedidos, supervision de quejas y sugerencias).
 
 Modulo de empleado:
-- precio de computadora (suma de precios de componentes).
 - realizar venta de computadoras (armadas, personalizadas, desde cero).
 - listar y editar trabajos (Ensamblaje where idEmpleado === this.id).
 
 Modulo de cliente:
-- precio de computadora (suma de precios de componentes).
 - comprar computadora (armada, personalizada, desde cero).
 - registrar queja y sugerencia
-- carrito de compras

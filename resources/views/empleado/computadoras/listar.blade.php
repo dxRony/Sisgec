@@ -14,6 +14,7 @@
                 <th>ID</th>
                 <th>Stock</th>
                 <th>Componentes</th>
+                <th>Precio</th>
             </tr>
         </thead>
         <tbody>
@@ -32,6 +33,13 @@
                             </tr>
                         </thead>
                         <tbody>
+                            @php
+                            $precioTotal = 0;
+                            foreach($comp->componentes as $c) {
+                            $cantidad = ($c->tipoComponente === 'Memoria RAM' || $c->tipoComponente === 'Almacenamiento') ? $c->pivot->cantidad: 1;
+                            $precioTotal += $c->precio * $cantidad;
+                            }
+                            @endphp
                             @foreach($comp->componentes as $c)
                             <tr>
                                 <td>{{ $c->tipoComponente }}</td>
@@ -68,7 +76,10 @@
                             @endforeach
                         </tbody>
                     </table>
-                </td>                
+                </td>
+                <td>
+                    Q{{ number_format($precioTotal, 2) }}
+                </td>
             </tr>
             @endforeach
         </tbody>

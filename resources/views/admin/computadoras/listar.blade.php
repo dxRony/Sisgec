@@ -14,6 +14,7 @@
                 <th>ID</th>
                 <th>Stock</th>
                 <th>Componentes</th>
+                <th>Precio</th>
                 <th>Accion</th>
             </tr>
         </thead>
@@ -33,6 +34,13 @@
                             </tr>
                         </thead>
                         <tbody>
+                            @php
+                            $precioTotal = 0;
+                            foreach($comp->componentes as $c) {
+                            $cantidad = ($c->tipoComponente === 'Memoria RAM' || $c->tipoComponente === 'Almacenamiento') ? $c->pivot->cantidad: 1;
+                            $precioTotal += $c->precio * $cantidad;
+                            }
+                            @endphp
                             @foreach($comp->componentes as $c)
                             <tr>
                                 <td>{{ $c->tipoComponente }}</td>
@@ -69,6 +77,9 @@
                             @endforeach
                         </tbody>
                     </table>
+                </td>
+                <td>
+                    Q{{ number_format($precioTotal, 2) }}
                 </td>
                 <td>
                     <a href="{{ route('admin.computadoras.edit', $comp->id) }}" class="btn btn-warning btn-sm">Modificar sotck</a>

@@ -26,8 +26,7 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Compra tu computadora</a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Computadoras armadas</a></li>
-                            <li><a class="dropdown-item" href="#">Personaliza tu computadora</a></li>
+                            <li><a class="dropdown-item" href="/cliente/computadoras/listar">Computadoras armadas</a></li>
                             <li><a class="dropdown-item" href="#">Arma tu computadora desde cero</a></li>
                         </ul>
                     </li>
@@ -35,8 +34,7 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Consulta de inventario</a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="/cliente/computadoras/listar">Computadoras armadas</a></li>
-                            <li><a class="dropdown-item" href="/cliente/componentes/listar">Componentes en inventario</a></li>                        
+                            <li><a class="dropdown-item" href="/cliente/componentes/listar">Componentes en inventario</a></li>
                         </ul>
                     </li>
 
@@ -44,8 +42,16 @@
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Queja o sugerencia</a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="#">Realiza una sugerencia</a></li>
-                            <li><a class="dropdown-item" href="#">Realiza una queja</a></li>                            
+                            <li><a class="dropdown-item" href="#">Realiza una queja</a></li>
                         </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('carrito.index') }}">
+                            Carrito
+                            @if(session('carrito'))
+                            <span class="badge bg-primary">{{ count(session('carrito')) }}</span>
+                            @endif
+                        </a>
                     </li>
                 </ul>
 

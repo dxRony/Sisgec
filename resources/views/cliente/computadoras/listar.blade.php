@@ -14,6 +14,8 @@
                 <th>ID</th>
                 <th>Stock</th>
                 <th>Componentes</th>
+                <th>Precio</th>
+                <th>Accion</th>
             </tr>
         </thead>
         <tbody>
@@ -32,6 +34,13 @@
                             </tr>
                         </thead>
                         <tbody>
+                            @php
+                            $precioTotal = 0;
+                            foreach($comp->componentes as $c) {
+                            $cantidad = ($c->tipoComponente === 'Memoria RAM' || $c->tipoComponente === 'Almacenamiento') ? $c->pivot->cantidad: 1;
+                            $precioTotal += $c->precio * $cantidad;
+                            }
+                            @endphp
                             @foreach($comp->componentes as $c)
                             <tr>
                                 <td>{{ $c->tipoComponente }}</td>
@@ -68,7 +77,22 @@
                             @endforeach
                         </tbody>
                     </table>
-                </td>                
+                </td>
+                <td>
+                    Q{{ number_format($precioTotal, 2) }}
+                </td>
+                <td>
+                    <form action="{{ route('carrito.agregar', $comp->id) }}" method="POST">
+                        @csrf
+                        <button type="submit" class="btn btn-success btn-sm">Agregar al carrito</button>
+                        <p></p>
+                    </form>
+                    <form action="{{ route('cliente.computadoras.personalizar', $comp->id) }}" method="GET">
+                        @csrf
+                        <button type="submit" class="btn btn-warning btn-sm">Personalizar</button>
+                    </form>
+
+                </td>
             </tr>
             @endforeach
         </tbody>
