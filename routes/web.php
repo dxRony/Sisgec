@@ -13,11 +13,13 @@ use App\Http\Controllers\Admin\ComputadoraController as AdminComputerController;
 use App\Http\Controllers\Empleado\ClienteController as EmpleadoUserController;
 use App\Http\Controllers\Empleado\ComputadoraController as EmpleadoComputerController;
 use App\Http\Controllers\Empleado\ComponenteController as EmpleadoComponenteController;
+use App\Http\Controllers\Empleado\CarritoController as EmpleadoCarritoController;
+use App\Http\Controllers\Empleado\VenderController as VenderController;
 
 use App\Http\Controllers\Cliente\ComponenteController as ClienteComponenteController;
 use App\Http\Controllers\Cliente\ComputadoraController as ClienteComputerController;
-use App\Http\Controllers\Cliente\CarritoController;
-use App\Http\Controllers\Cliente\ComprarController as ComprarController;
+use App\Http\Controllers\Cliente\CarritoController as ClienteCarritoController;
+use App\Http\Controllers\Cliente\ComprarController as ClienteComprarController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -70,22 +72,31 @@ Route::prefix('empleado')->middleware(['auth'])->group(function () {
     Route::get('/componentes/listar', [EmpleadoComponenteController::class, 'listar'])->name('empleado.componentes.listar');
     //computadoras
     Route::get('/computadoras/listar', [EmpleadoComputerController::class, 'listar'])->name('empleado.computadoras.listar');
+    Route::get('/computadoras/personalizar/{id}', [EmpleadoComputerController::class, 'personalizarV'])->name('empleado.computadoras.personalizar');
+    Route::post('/computadoras/personalizar/{id}', [EmpleadoComputerController::class, 'personalizar'])->name('empleado.computadoras.personalizar.post');
+    Route::get('/computadoras/registrar', [EmpleadoComputerController::class, 'registrarV'])->name('empleado.computadoras.register');
+    Route::post('/computadoras/registrar', [EmpleadoComputerController::class, 'registrar'])->name('empleado.computadoras.register.post');
+    //carrito
+    Route::get('/carrito', [EmpleadoCarritoController::class, 'index'])->name('empleado.carrito.index');
+    Route::post('/carrito/agregar/{id}', [EmpleadoCarritoController::class, 'agregar'])->name('empleado.carrito.agregar');
+    Route::post('/carrito/eliminar/{id}', [EmpleadoCarritoController::class, 'eliminar'])->name('empleado.carrito.eliminar');
+    Route::post('/carrito/agregarComponente/{id}', [EmpleadoCarritoController::class, 'agregarComponente'])->name('empleado.carrito.agregarComponente');
+    Route::post('/carrito/comprar', [VenderController::class, 'realizarCompra'])->name('empleado.carrito.comprar');
 });
 //rutas de cliente
 Route::prefix('cliente')->middleware(['auth'])->group(function () {
     //componentes
     Route::get('/componentes/listar', [ClienteComponenteController::class, 'listar'])->name('cliente.componentes.listar');
     //computadoras
-    Route::get('/computadoras/listar', [ClienteComputerController::class, 'listar'])->name('empleado.computadoras.listar');
+    Route::get('/computadoras/listar', [ClienteComputerController::class, 'listar'])->name('cliente.computadoras.listar');
     Route::get('/computadoras/personalizar/{id}', [ClienteComputerController::class, 'personalizarV'])->name('cliente.computadoras.personalizar');
     Route::post('/computadoras/personalizar/{id}', [ClienteComputerController::class, 'personalizar'])->name('cliente.computadoras.personalizar.post');
     Route::get('/computadoras/registrar', [ClienteComputerController::class, 'registrarV'])->name('cliente.computadoras.register');
     Route::post('/computadoras/registrar', [ClienteComputerController::class, 'registrar'])->name('cliente.computadoras.register.post');
     //carrito
-    Route::get('/carrito', [CarritoController::class, 'index'])->name('carrito.index');
-    Route::post('/carrito/agregar/{id}', [CarritoController::class, 'agregar'])->name('carrito.agregar');
-    Route::post('/carrito/eliminar/{id}', [CarritoController::class, 'eliminar'])->name('carrito.eliminar');
-    Route::post('/carrito/agregarComponente/{id}', [CarritoController::class, 'agregarComponente'])->name('cliente.carrito.agregarComponente');
-
-    Route::post('/carrito/comprar', [ComprarController::class, 'realizarCompra'])->name('carrito.comprar');
+    Route::get('/carrito', [ClienteCarritoController::class, 'index'])->name('cliente.carrito.index');
+    Route::post('/carrito/agregar/{id}', [ClienteCarritoController::class, 'agregar'])->name('cliente.carrito.agregar');
+    Route::post('/carrito/eliminar/{id}', [ClienteCarritoController::class, 'eliminar'])->name('cliente.carrito.eliminar');
+    Route::post('/carrito/agregarComponente/{id}', [ClienteCarritoController::class, 'agregarComponente'])->name('cliente.carrito.agregarComponente');
+    Route::post('/carrito/comprar', [ClienteComprarController::class, 'realizarCompra'])->name('cliente.carrito.comprar');
 });

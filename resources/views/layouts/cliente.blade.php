@@ -46,7 +46,7 @@
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('carrito.index') }}">
+                        <a class="nav-link" href="{{ route('cliente.carrito.index') }}">
                             Carrito
                             @if(session('carrito'))
                             <span class="badge bg-primary">{{ count(session('carrito')) }}</span>

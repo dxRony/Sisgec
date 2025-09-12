@@ -3,7 +3,9 @@
 @section('content')
 <div class="container">
     <h2 class="lbl-1">Lista de Computadoras Armadas</h2>
-
+    @if(session('error'))
+    <div class="alert alert-danger">{{ session('error') }}</div>
+    @endif
     @if(session('success'))
     <div class="alert alert-success">{{ session('success') }}</div>
     @endif
@@ -15,6 +17,7 @@
                 <th>Stock</th>
                 <th>Componentes</th>
                 <th>Precio</th>
+                <th>Accion</th>
             </tr>
         </thead>
         <tbody>
@@ -79,6 +82,18 @@
                 </td>
                 <td>
                     Q{{ number_format($precioTotal, 2) }}
+                </td>
+                <td>
+                    <form action="{{ route('empleado.carrito.agregar', $comp->id) }}" method="POST">
+                        @csrf
+                        <button type="submit" class="btn btn-success btn-sm">Agregar al carrito</button>
+                        <p></p>
+                    </form>
+                    <form action="{{ route('empleado.computadoras.personalizar', $comp->id) }}" method="GET">
+                        @csrf
+                        <button type="submit" class="btn btn-warning btn-sm">Personalizar</button>
+                    </form>
+
                 </td>
             </tr>
             @endforeach

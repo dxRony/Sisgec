@@ -3,7 +3,9 @@
 @section('content')
 <div class="container">
     <h2 class="lbl-1">Lista de Componentes</h2>
-
+    @if(session('error'))
+    <div class="alert alert-danger">{{ session('error') }}</div>
+    @endif
     @if(session('success'))
     <div class="alert alert-success">{{ session('success') }}</div>
     @endif
@@ -11,7 +13,7 @@
     <div class="alert alert-danger">
         <ul>
             @foreach($errors->all() as $e)
-                <li>{{ $e }}</li>
+            <li>{{ $e }}</li>
             @endforeach
         </ul>
     </div>
@@ -32,8 +34,8 @@
                 <th>Eficencia</th>
                 <th>Color</th>
                 <th>Stock</th>
-                <th>Precio</th> 
-                <th>Acción</th>               
+                <th>Precio</th>
+                <th>Acción</th>
             </tr>
         </thead>
         <tbody>
@@ -45,12 +47,12 @@
                 <td>{{ $componente->consumoEnergetico ?? '-' }}</td>
                 <td>{{ $componente->nucleos ?? '-' }}</td>
                 @if($componente->tipoComponente == 'Procesador')
-                    <td>{{ $componente->velocidad }} GHz</td>
+                <td>{{ $componente->velocidad }} GHz</td>
                 @elseif($componente->tipoComponente == 'Memoria RAM')
-                    <td>{{ $componente->velocidad }} MHz</td>
-                @else 
-                    <td>{{ $componente->velocidad ?? '-' }}</td>
-                @endif                
+                <td>{{ $componente->velocidad }} MHz</td>
+                @else
+                <td>{{ $componente->velocidad ?? '-' }}</td>
+                @endif
                 <td>{{ $componente->capacidad ?? '-' }}</td>
                 <td>{{ $componente->tipo ?? '-' }}</td>
                 <td>{{ $componente->potencia ?? '-' }}</td>

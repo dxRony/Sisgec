@@ -27,14 +27,14 @@
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Gestion de clientes</a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="/empleado/clientes/registrar">Registrar a un cliente</a></li>
-                            <li><a class="dropdown-item" href="/empleado/clientes/listar">Listar clientes</a></li>                            
+                            <li><a class="dropdown-item" href="/empleado/clientes/listar">Listar clientes</a></li>
                         </ul>
                     </li>
 
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Consulta de inventario</a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="/empleado/computadoras/listar">Computadoras armadas</a></li>
+
                             <li><a class="dropdown-item" href="/empleado/componentes/listar">Componentes en inventario</a></li>
                         </ul>
                     </li>
@@ -42,9 +42,8 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Realizar venta</a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Computadoras armadas</a></li>
-                            <li><a class="dropdown-item" href="#">Personalizar computadora</a></li>
-                            <li><a class="dropdown-item" href="#">Armar computadora desde cero</a></li>
+                            <li><a class="dropdown-item" href="/empleado/computadoras/listar">Computadoras armadas</a></li>
+                            <li><a class="dropdown-item" href="/empleado/computadoras/registrar">Armar computadora desde cero</a></li>
                         </ul>
                     </li>
 
@@ -53,6 +52,14 @@
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="#">Listar trabajos pendientes</a></li>
                         </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('empleado.carrito.index') }}">
+                            Carrito
+                            @if(session('carrito'))
+                            <span class="badge bg-primary">{{ count(session('carrito')) }}</span>
+                            @endif
+                        </a>
                     </li>
                 </ul>
 

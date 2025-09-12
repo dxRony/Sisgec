@@ -5,8 +5,6 @@ Modulo de administracion:
 - reportes (supervision de ventas, supervision de pedidos, atencion al cliente).
 
 Modulo de empleado:
-- realizar venta de computadoras (armadas, personalizadas, desde cero).
-- realizar venta de componentes
 - listar, editar y adquirir ensamblajes (Ensamblaje where idEmpleado === this.id).
 
 Modulo de cliente:

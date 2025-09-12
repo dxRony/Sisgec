@@ -3,7 +3,9 @@
 @section('content')
 <div class="container">
     <h2 class="lbl-1">Lista de Componentes</h2>
-
+    @if(session('error'))
+    <div class="alert alert-danger">{{ session('error') }}</div>
+    @endif
     @if(session('success'))
     <div class="alert alert-success">{{ session('success') }}</div>
     @endif
@@ -23,7 +25,8 @@
                 <th>Eficencia</th>
                 <th>Color</th>
                 <th>Stock</th>
-                <th>Precio</th>                
+                <th>Precio</th>
+                <th>Acción</th>
             </tr>
         </thead>
         <tbody>
@@ -38,9 +41,9 @@
                 <td>{{ $componente->velocidad }} GHz</td>
                 @elseif($componente-> tipoComponente == 'Memoria RAM')
                 <td>{{ $componente->velocidad }} MHz</td>
-                @else 
+                @else
                 <td>{{ $componente->velocidad ?? '-' }}</td>
-                @endif                
+                @endif
                 <td>{{ $componente->capacidad ?? '-' }}</td>
                 <td>{{ $componente->tipo ?? '-' }}</td>
                 <td>{{ $componente->potencia ?? '-' }}</td>
@@ -48,6 +51,13 @@
                 <td>{{ $componente->color ?? '-' }}</td>
                 <td>{{ $componente->stock }}</td>
                 <td>Q.{{ $componente->precio }}</td>
+                <td>
+                    <form action="{{ route('empleado.carrito.agregarComponente', $componente->id) }}" method="POST" class="d-flex">
+                        @csrf
+                        <input type="number" name="cantidad" value="1" min="1" max="{{ $componente->stock }}" class="form-control form-control-sm me-2" style="width: 80px;" />
+                        <button type="submit" class="btn btn-sm btn-success">Agregar</button>
+                    </form>
+                </td>
             </tr>
             @endforeach
         </tbody>

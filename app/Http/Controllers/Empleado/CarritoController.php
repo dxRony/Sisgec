@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Cliente;
+namespace App\Http\Controllers\Empleado;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -9,11 +9,12 @@ use App\Models\Componente;
 
 class CarritoController extends Controller
 {
-
     public function index()
     {
         $carrito = session()->get('carrito', []);
-        return view('cliente.carrito', compact('carrito'));
+        //obteniendo usuarios con rol = 3, que son clientes
+        $clientes = \App\Models\User::where('rol', 3)->get();
+        return view('empleado.carrito', compact('carrito', 'clientes'));
     }
 
     public function agregar($id)
@@ -34,7 +35,7 @@ class CarritoController extends Controller
         }
 
         $carrito = session()->get('carrito', []);
-        $key = "computadora_" . $id; // evita colisión con componentes
+        $key = "computadora_" . $id;
 
         if (isset($carrito[$key])) {
             $carrito[$key]['cantidad']++;
@@ -63,7 +64,7 @@ class CarritoController extends Controller
             unset($carrito[$id]);
             session()->put('carrito', $carrito);
         }
-        return redirect()->route('cliente.carrito.index')->with('success', 'Producto eliminado del carrito.');
+        return redirect()->route('empleado.carrito.index')->with('success', 'Producto eliminado del carrito.');
     }
 
 
@@ -82,7 +83,7 @@ class CarritoController extends Controller
 
         $carrito = session()->get('carrito', []);
 
-        $key = "componente_" . $id; // evita colisión con computadoras
+        $key = "componente_" . $id;
 
         if (isset($carrito[$key])) {
             $carrito[$key]['cantidad'] += $cantidad;

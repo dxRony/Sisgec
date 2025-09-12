@@ -1,7 +1,7 @@
 @extends('layouts.empleado')
 
 @section('content')
-<h1 class="lbl-1">Bienvenido cliente</h1>
+<h1 class="lbl-1">Bienvenido empleado</h1>
 <section class="features">
     <div class="container">
         <div class="row text-center mb-4">

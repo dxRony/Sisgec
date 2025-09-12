@@ -1,4 +1,4 @@
-@extends('layouts.cliente')
+@extends('layouts.empleado')
 
 @section('content')
 <div class="container">
@@ -28,8 +28,8 @@
             @php $total = 0; @endphp
             @foreach($carrito as $key => $item)
             @php
-                $subtotal = $item['precio'] * $item['cantidad'];
-                $total += $subtotal;
+            $subtotal = $item['precio'] * $item['cantidad'];
+            $total += $subtotal;
             @endphp
             <tr>
                 <td>{{ $item['id'] }}</td>
@@ -38,7 +38,7 @@
                 <td>{{ $item['cantidad'] }}</td>
                 <td>Q{{ number_format($subtotal, 2) }}</td>
                 <td>
-                    <form action="{{ route('cliente.carrito.eliminar', $key) }}" method="POST" style="display:inline;">
+                    <form action="{{ route('empleado.carrito.eliminar', $key) }}" method="POST" style="display:inline;">
                         @csrf
                         <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
                     </form>
@@ -49,10 +49,18 @@
                 <td colspan="4" class="text-end"><strong>Total</strong></td>
                 <td><strong>Q{{ number_format($total, 2) }}</strong></td>
                 <td>
-                    <form action="{{ route('cliente.carrito.comprar') }}" method="POST">
+                    <form action="{{ route('empleado.carrito.comprar') }}" method="POST">
                         @csrf
+                        <div class="mb-2">
+                            <select name="usuario_id" class="form-select form-select-sm" required>
+                                <option value="">-- Seleccione un cliente --</option>
+                                @foreach($clientes as $cliente)
+                                <option value="{{ $cliente->id }}">{{ $cliente->name }} (Nit: {{ $cliente->id }})</option>
+                                @endforeach
+                            </select>
+                        </div>
                         <button type="submit" class="btn btn-success btn-sm">
-                            Realizar compra
+                            Realizar venta
                         </button>
                     </form>
                 </td>

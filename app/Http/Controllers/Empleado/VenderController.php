@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Cliente;
+namespace App\Http\Controllers\Empleado;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -13,10 +13,12 @@ use App\Models\Factura;
 use App\Models\Computadora;
 use App\Models\Componente;
 
-class ComprarController extends Controller
+
+class VenderController extends Controller
 {
     public function realizarCompra(Request $request)
     {
+
         //obteniendo carrito de la sesion
         $carrito = session()->get('carrito', []);
         //obteniendo usuario de la sesion
@@ -28,11 +30,11 @@ class ComprarController extends Controller
         //transaccion-rollback, por si algo sale mal
         DB::beginTransaction();
         try {
-            //creando venta
+            //creando venta, con el empleado de la sesion
             $venta = Venta::create([
                 'total' => $this->calcularTotalCompra($carrito),
-                'nitUsuario' => $user->id,
-                'nitEmpleado' => 1,
+                'nitUsuario' => $request->input('usuario_id'),
+                'nitEmpleado' => $user->id,
                 'estado' => 'en proceso',
             ]);
             //estado para determinar en la venta
@@ -52,12 +54,12 @@ class ComprarController extends Controller
                     ]);
                     //disminuyendo la disponibilidad de la computadora
                     $computadora->decrement('disponibilidad', $item['cantidad']);
-                    //si la pc es personalizada se crea el ensamblaje
+                    //si la pc es personalizada se crea el ensamblaje, con el empleado de la sesion
                     $estadoEnsamblaje = $computadora->personalizada ? 'en proceso' : 'ensamblado';
                     Ensamblaje::create([
                         'idVenta' => $venta->id,
                         'idComputadora' => $computadora->id,
-                        'idEmpleado' => null, //OJOOOOOOOOOOOOOOO
+                        'idEmpleado' => $user->id,
                         'estado' => $estadoEnsamblaje,
                     ]);
 
@@ -92,7 +94,7 @@ class ComprarController extends Controller
             //confirmando inserts y vaciando el carrito
             DB::commit();
             session()->forget('carrito');
-            return redirect()->route('cliente.carrito.index')->with('success', 'Compra realizada con éxito.');
+            return redirect()->route('empleado.carrito.index')->with('success', 'Venta realizada con éxito.');
         } catch (\Exception $e) {
             DB::rollBack();
             return back()->withErrors(['error' => 'Error al procesar la compra: ' . $e->getMessage()]);

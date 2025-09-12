@@ -3,7 +3,9 @@
 @section('content')
 <div class="container">
     <h2 class="lbl-1">Lista de Computadoras Armadas</h2>
-
+    @if(session('error'))
+    <div class="alert alert-danger">{{ session('error') }}</div>
+    @endif
     @if(session('success'))
     <div class="alert alert-success">{{ session('success') }}</div>
     @endif
@@ -82,7 +84,7 @@
                     Q{{ number_format($precioTotal, 2) }}
                 </td>
                 <td>
-                    <form action="{{ route('carrito.agregar', $comp->id) }}" method="POST">
+                    <form action="{{ route('cliente.carrito.agregar', $comp->id) }}" method="POST">
                         @csrf
                         <button type="submit" class="btn btn-success btn-sm">Agregar al carrito</button>
                         <p></p>
