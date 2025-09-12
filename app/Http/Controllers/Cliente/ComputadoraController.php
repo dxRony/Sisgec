@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Cliente;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Computadora;
-use Illuminate\Support\Facades\DB;
 use App\Models\Componente;
 use App\Http\Controllers\Cliente\CarritoController as CarritoController;
 
@@ -25,27 +24,36 @@ class ComputadoraController extends Controller
         return view('cliente.computadoras.personalizar', compact('computadora', 'agrupados', 'seleccionados'));
     }
 
-    public function guardarPersonalizada(Request $request, $id)
+    public function personalizar(Request $request, $id)
     {
         $original = Computadora::with('componentes')->findOrFail($id);
         $datos = $request->input('componentes', []);
 
-        foreach ($datos as $componenteId => $info) {
+        // Validar stock
+        foreach ($datos as $tipo => $info) {
+            $componenteId = $info['id'];   // ahora sí, tomamos el id correcto
             $cantidad = $info['cantidad'] ?? 1;
+
             $componente = Componente::findOrFail($componenteId);
 
             if ($componente->stock < $cantidad) {
-                return back()->withErrors(["componentes.$componenteId" => "Stock insuficiente para {$componente->tipoComponente} {$componente->marca}."]);
+                return back()->withErrors([
+                    "componentes.$tipo" => "Stock insuficiente para {$componente->tipoComponente} {$componente->marca}."
+                ]);
             }
         }
 
+        // Clonar la computadora base
         $nuevaComputadora = $original->replicate();
         $nuevaComputadora->disponibilidad = 1;
         $nuevaComputadora->personalizada = true;
         $nuevaComputadora->save();
 
-        foreach ($datos as $componenteId => $info) {
+        // Asociar los componentes seleccionados
+        foreach ($datos as $tipo => $info) {
+            $componenteId = $info['id'];   // usar SIEMPRE el id real
             $cantidad = $info['cantidad'] ?? 1;
+
             $nuevaComputadora->componentes()->attach($componenteId, ['cantidad' => $cantidad]);
         }
 
@@ -54,6 +62,7 @@ class ComputadoraController extends Controller
 
         return redirect()->route('cliente.index')->with('success', 'Computadora personalizada agregada al carrito.');
     }
+
 
     public function registrarV()
     {

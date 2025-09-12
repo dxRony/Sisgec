@@ -9,6 +9,7 @@ class Factura extends Model
 {
     protected $table = 'Factura';
     protected $fillable = ['idVenta', 'nit', 'fecha'];
+    public $timestamps = false;
 
     // Relación con Venta
     public function venta(): BelongsTo

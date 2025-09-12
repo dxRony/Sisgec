@@ -8,8 +8,10 @@ Modulo de empleado:
 - listar y editar trabajos (Ensamblaje where idEmpleado === this.id).
 
 Modulo de cliente:
-- consultar existencias de componentes al registrar computadora desde cero y agregar al carrito.
-- consultar existencias de componentes al personalizar computadora y agregar al carrito.
-- consultar existencias de computadoras armadas al agregar al carrito.
-- comprar computadora (armada, personalizada, desde cero), disminuir existencias
-- registrar queja y sugerencia
+- comprar componente por separado
+- comprar computadora o computadoras (armada, personalizada, desde cero), disminuir existencias.
+	- si es una computadora ya armada poner en estado ensamblado (personalizada = false).
+	- si es una computadora personalizada o creada desde cero (personalizada = true) asignar a un empleado para el ensamblaje y poner en estado en proceso.
+	- si la venta es de una computadora con personalizada = true, involucar a los objetos ensamblaje para ir registrando el estado.
+- consulta de compras por usuario (adjuntar factura).
+- registrar queja y sugerencia.

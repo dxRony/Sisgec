@@ -9,6 +9,7 @@ class DetalleVenta extends Model
 {
     protected $table = 'DetalleVenta';
     protected $fillable = ['idVenta', 'idComputadora', 'idComponente', 'cantidad', 'subtotal'];
+    public $timestamps = false;
 
     // Relación con Venta
     public function venta(): BelongsTo

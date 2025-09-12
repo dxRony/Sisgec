@@ -9,23 +9,21 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Ensamblaje extends Model
 {
     protected $table = 'Ensamblaje';
-    protected $fillable = ['idComputadora', 'idEmpleado', 'estado', 'fecha'];
+    protected $fillable = ['idVenta', 'idComputadora', 'idEmpleado', 'estado', 'fecha'];
+    public $timestamps = false;
 
-    // Relación con Computadora
     public function computadora(): BelongsTo
     {
         return $this->belongsTo(Computadora::class, 'idComputadora');
     }
 
-    // Relación con Usuario (empleado)
     public function empleado(): BelongsTo
     {
         return $this->belongsTo(User::class, 'idEmpleado');
     }
 
-    // Relación con DetalleEnsamblaje
-    public function detalles(): HasMany
+    public function venta(): BelongsTo
     {
-        return $this->hasMany(DetalleEnsamblaje::class, 'idEnsamblaje');
+        return $this->belongsTo(Venta::class, 'idVenta');
     }
 }

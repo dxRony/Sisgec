@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Cliente;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Computadora;
+use App\Models\Componente;
 
 class CarritoController extends Controller
 {
@@ -55,5 +56,41 @@ class CarritoController extends Controller
             session()->put('carrito', $carrito);
         }
         return redirect()->route('carrito.index')->with('success', 'Producto eliminado del carrito.');
+    }
+
+
+    public function agregarComponente(Request $request, $id)
+    {
+        $componente = Componente::findOrFail($id);
+
+        $cantidad = $request->input('cantidad', 1);
+
+        if ($cantidad < 1) {
+            return back()->withErrors(['cantidad' => 'La cantidad debe ser al menos 1.']);
+        }
+
+        if ($componente->stock < $cantidad) {
+            return back()->withErrors(['stock' => 'No hay suficiente stock disponible de este componente.']);
+        }
+
+        $carrito = session()->get('carrito', []);
+
+        $key = "componente_" . $id; // para no chocar con IDs de computadoras
+
+        if (isset($carrito[$key])) {
+            $carrito[$key]['cantidad'] += $cantidad;
+        } else {
+            $carrito[$key] = [
+                'id' => $componente->id,
+                'tipo' => 'componente',
+                'nombre' => $componente->tipoComponente . ' ' . $componente->marca,
+                'precio' => $componente->precio,
+                'cantidad' => $cantidad
+            ];
+        }
+
+        session()->put('carrito', $carrito);
+
+        return redirect()->back()->with('success', 'Componente agregado al carrito.');
     }
 }

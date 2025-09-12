@@ -17,6 +17,7 @@ use App\Http\Controllers\Empleado\ComponenteController as EmpleadoComponenteCont
 use App\Http\Controllers\Cliente\ComponenteController as ClienteComponenteController;
 use App\Http\Controllers\Cliente\ComputadoraController as ClienteComputerController;
 use App\Http\Controllers\Cliente\CarritoController;
+use App\Http\Controllers\Cliente\ComprarController as ComprarController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -77,11 +78,14 @@ Route::prefix('cliente')->middleware(['auth'])->group(function () {
     //computadoras
     Route::get('/computadoras/listar', [ClienteComputerController::class, 'listar'])->name('empleado.computadoras.listar');
     Route::get('/computadoras/personalizar/{id}', [ClienteComputerController::class, 'personalizarV'])->name('cliente.computadoras.personalizar');
-    Route::post('/computadoras/guardarPersonalizada/{id}', [ClienteComputerController::class, 'guardarPersonalizada'])->name('cliente.computadoras.guardarPersonalizada');
+    Route::post('/computadoras/personalizar/{id}', [ClienteComputerController::class, 'personalizar'])->name('cliente.computadoras.personalizar.post');
     Route::get('/computadoras/registrar', [ClienteComputerController::class, 'registrarV'])->name('cliente.computadoras.register');
     Route::post('/computadoras/registrar', [ClienteComputerController::class, 'registrar'])->name('cliente.computadoras.register.post');
     //carrito
     Route::get('/carrito', [CarritoController::class, 'index'])->name('carrito.index');
     Route::post('/carrito/agregar/{id}', [CarritoController::class, 'agregar'])->name('carrito.agregar');
     Route::post('/carrito/eliminar/{id}', [CarritoController::class, 'eliminar'])->name('carrito.eliminar');
+    Route::post('/carrito/agregarComponente/{id}', [CarritoController::class, 'agregarComponente'])->name('cliente.carrito.agregarComponente');
+
+    Route::post('/carrito/comprar', [ComprarController::class, 'realizarCompra'])->name('carrito.comprar');
 });

@@ -18,12 +18,7 @@ Abstraccion de objetos:
 	id int 
 	idComputadora int
 	idEmpleado int
-	estado varchar
-
-- DetalleEnsamblaje
-	idEnsamblaje int
-	idComponente int
-	idComponente int
+	estado varchar (en proceso, ensamblado, vendido)
 
 - Componente
 	id int
@@ -62,5 +57,10 @@ Abstraccion de objetos:
 - Factura
 	id int
 	idVenta int	
-	nit int
+	nit int (nit del cliente)
 	fecha date
+
+- DetalleEnsamblaje
+	idEnsamblaje int
+	idComponente int
+	idComponente int

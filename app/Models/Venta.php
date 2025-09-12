@@ -10,29 +10,31 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 class Venta extends Model
 {
     protected $table = 'Venta';
-    protected $fillable = ['total', 'nitUsuario', 'nitEmpleado'];
+    protected $fillable = ['total', 'nitUsuario', 'nitEmpleado', 'estado'];
+    public $timestamps = false;
 
-    // Cliente
     public function cliente(): BelongsTo
     {
         return $this->belongsTo(User::class, 'nitUsuario');
     }
 
-    // Empleado
     public function empleado(): BelongsTo
     {
         return $this->belongsTo(User::class, 'nitEmpleado');
     }
 
-    // Relación con DetalleVenta
     public function detalles(): HasMany
     {
         return $this->hasMany(DetalleVenta::class, 'idVenta');
     }
 
-    // Relación con Factura
     public function factura(): HasOne
     {
         return $this->hasOne(Factura::class, 'idVenta');
+    }
+
+    public function ensamblajes(): HasMany
+    {
+        return $this->hasMany(Ensamblaje::class, 'idVenta');
     }
 }
