@@ -19,7 +19,8 @@ class CarritoController extends Controller
     public function agregar($id)
     {
         $computadora = Computadora::with('componentes')->findOrFail($id);
-        //validadno stock
+
+        // validar stock
         if ($computadora->disponibilidad < 1) {
             return redirect()->back()->withErrors(['stock' => 'No hay disponibilidad de esta computadora.']);
         }
@@ -33,17 +34,22 @@ class CarritoController extends Controller
         }
 
         $carrito = session()->get('carrito', []);
+        $key = "computadora_" . $id; // evita colisión con componentes
 
-        if (isset($carrito[$id])) {
-            $carrito[$id]['cantidad']++;
+        if (isset($carrito[$key])) {
+            $carrito[$key]['cantidad']++;
         } else {
-            $carrito[$id] = [
+            $carrito[$key] = [
                 'id' => $computadora->id,
+                'tipo' => 'computadora',
+                'nombre' => $computadora->nombre,
                 'precio' => $precioTotal,
                 'cantidad' => 1
             ];
         }
+
         session()->put('carrito', $carrito);
+
         return redirect()->back()->with('success', 'Computadora agregada al carrito.');
     }
 
@@ -62,7 +68,6 @@ class CarritoController extends Controller
     public function agregarComponente(Request $request, $id)
     {
         $componente = Componente::findOrFail($id);
-
         $cantidad = $request->input('cantidad', 1);
 
         if ($cantidad < 1) {
@@ -75,7 +80,7 @@ class CarritoController extends Controller
 
         $carrito = session()->get('carrito', []);
 
-        $key = "componente_" . $id; // para no chocar con IDs de computadoras
+        $key = "componente_" . $id; // evita colisión con computadoras
 
         if (isset($carrito[$key])) {
             $carrito[$key]['cantidad'] += $cantidad;

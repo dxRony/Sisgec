@@ -1,17 +1,14 @@
 TODO:
 
 Modulo de administracion:
-- reportes (supervision de ventas, supervision de pedidos, supervision de quejas y sugerencias).
+- listar ventas y ensamblajes
+- reportes (supervision de ventas, supervision de pedidos, atencion al cliente).
 
 Modulo de empleado:
 - realizar venta de computadoras (armadas, personalizadas, desde cero).
-- listar y editar trabajos (Ensamblaje where idEmpleado === this.id).
+- realizar venta de componentes
+- listar, editar y adquirir ensamblajes (Ensamblaje where idEmpleado === this.id).
 
 Modulo de cliente:
-- comprar componente por separado
-- comprar computadora o computadoras (armada, personalizada, desde cero), disminuir existencias.
-	- si es una computadora ya armada poner en estado ensamblado (personalizada = false).
-	- si es una computadora personalizada o creada desde cero (personalizada = true) asignar a un empleado para el ensamblaje y poner en estado en proceso.
-	- si la venta es de una computadora con personalizada = true, involucar a los objetos ensamblaje para ir registrando el estado.
 - consulta de compras por usuario (adjuntar factura).
-- registrar queja y sugerencia.
+- implemantar atencion al cliente (registrar queja y sugerencia)

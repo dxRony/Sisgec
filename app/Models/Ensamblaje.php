@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Ensamblaje extends Model
 {
     protected $table = 'Ensamblaje';
-    protected $fillable = ['idVenta', 'idComputadora', 'idEmpleado', 'estado', 'fecha'];
+    protected $fillable = ['idVenta', 'idComputadora', 'idEmpleado', 'estado'];
     public $timestamps = false;
 
     public function computadora(): BelongsTo

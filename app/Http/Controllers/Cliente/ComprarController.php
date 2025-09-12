@@ -17,79 +17,69 @@ class ComprarController extends Controller
 {
     public function realizarCompra(Request $request)
     {
-        //mostrando en consola que entre al metodo
-        logger()->info('Entrando a realizarCompra');
+        //obteniendo carrito de la sesion
         $carrito = session()->get('carrito', []);
-        //mostrando en consola el contenido del carrito
-        logger()->info('Contenido del carrito: ', $carrito);
-
-        //guardando usuario autenticado
+        //obteniendo usuario de la sesion
         $user = Auth::user();
-        logger()->info('Usuario autenticado: ', ['id' => $user->id, 'name' => $user->name]);
-
         if (empty($carrito)) {
             return back()->withErrors(['carrito' => 'El carrito está vacío.']);
         }
 
+        //transaccion-rollback, por si algo sale mal
         DB::beginTransaction();
         try {
-            logger()->info('Iniciando transacción de compra');
             //creando venta
             $venta = Venta::create([
                 'total' => $this->calcularTotalCompra($carrito),
-                'nitUsuario' => $user->id, // cliente actual
-                'nitEmpleado' => 1, // ejemplo: asignar empleado fijo o desde auth
+                'nitUsuario' => $user->id,
+                'nitEmpleado' => 1,
                 'estado' => 'en proceso',
             ]);
-            logger()->info('Venta creada: ', ['id' => $venta->id, 'total' => $venta->total]);   
+            //estado para determinar en la venta
             $todoEnsamblado = true;
 
-            //recorriendo cada item en el carrito (computadora y componente)
             foreach ($carrito as $item) {
-                if (isset($item['idComputadora'])) {
-                    //si hay idComputadora
-                    $computadora = Computadora::findOrFail($item['idComputadora']);
-                    //datos de computadora
-                    logger()->info('Procesando computadora: ', ['id' => $computadora->id, 'nombre' => $computadora->nombre, 'personalizada' => $computadora->personalizada]);   
-                    //creandp detalle venta
+                //recorriendo cada item en el carrito
+                if ($item['tipo'] === 'computadora') {
+                    //si es de tipo computadora se obtiene por id
+                    $computadora = Computadora::findOrFail($item['id']);
+                    //si existe se crea el detalle venta
                     DetalleVenta::create([
                         'idVenta' => $venta->id,
                         'idComputadora' => $computadora->id,
                         'cantidad' => $item['cantidad'],
-                        'subtotal' => $computadora->precio * $item['cantidad'],
+                        'subtotal' => $item['precio'] * $item['cantidad'],
                     ]);
-
-                    //definiendo ensamblaje 
+                    //disminuyendo la disponibilidad de la computadora
+                    $computadora->decrement('disponibilidad', $item['cantidad']);
+                    //si la pc es personalizada se crea el ensamblaje
                     $estadoEnsamblaje = $computadora->personalizada ? 'en proceso' : 'ensamblado';
                     Ensamblaje::create([
                         'idVenta' => $venta->id,
                         'idComputadora' => $computadora->id,
-                        'idEmpleado' => 1, // empleado asignado
+                        'idEmpleado' => null, //OJOOOOOOOOOOOOOOO
                         'estado' => $estadoEnsamblaje,
-                        'fecha' => now(),
                     ]);
 
                     if ($estadoEnsamblaje !== 'ensamblado') {
                         $todoEnsamblado = false;
                     }
-                } elseif (isset($item['idComponente'])) {
-                    //si hay componente
-                    $componente = Componente::findOrFail($item['idComponente']);
-
-                    //creando detalle venta
+                } elseif ($item['tipo'] === 'componente') {
+                    $componente = Componente::findOrFail($item['id']);
+                    //si el item en el carrito es componente se crea el detalleventa, no necesita todo el ensamblaje
                     DetalleVenta::create([
                         'idVenta' => $venta->id,
                         'idComponente' => $componente->id,
                         'cantidad' => $item['cantidad'],
-                        'subtotal' => $componente->precio * $item['cantidad'],
+                        'subtotal' => $item['precio'] * $item['cantidad'],
                     ]);
+                    //disminuyendo la disponibilidad del componente
+                    $componente->decrement('stock', $item['cantidad']);
                 }
             }
-
-            // creando factura si no hay ensamblajes pendientes
             if ($todoEnsamblado) {
+                //si todos los detalleVenta estan ensamblados, se crea la factura y se finaliza la compra
                 Ensamblaje::where('idVenta', $venta->id)->update(['estado' => 'vendido']);
-
                 $venta->update(['estado' => 'finalizada']);
 
                 Factura::create([
@@ -99,17 +89,11 @@ class ComprarController extends Controller
                     'numeroFactura' => 'FACTURA NO. ' . str_pad($venta->id, 6, '0', STR_PAD_LEFT),
                 ]);
             }
-
+            //confirmando inserts y vaciando el carrito
             DB::commit();
-
-            //limpiando carrito
             session()->forget('carrito');
-
             return redirect()->route('carrito.index')->with('success', 'Compra realizada con éxito.');
         } catch (\Exception $e) {
-            logger()->error('Error en la compra: ' . $e->getMessage());
-            //linea del error
-            logger()->error('Línea del error: ' . $e->getLine());
             DB::rollBack();
             return back()->withErrors(['error' => 'Error al procesar la compra: ' . $e->getMessage()]);
         }
@@ -117,18 +101,40 @@ class ComprarController extends Controller
 
     private function calcularTotalCompra($carrito)
     {
-        logger()->info('Calculando total de la compra');
         $total = 0;
-        foreach ($carrito as $item) {
-            if (isset($item['idComputadora'])) {
-                $computadora = Computadora::find($item['idComputadora']);
-                $total += $computadora->precio * $item['cantidad'];
-            } elseif (isset($item['idComponente'])) {
-                $componente = Componente::find($item['idComponente']);
-                $total += $componente->precio * $item['cantidad'];
+        //recorriendo cada item en el carrito para determinar su total
+        foreach ($carrito as $key => $item) {
+            //obteniendo tipo del item
+            $tipo = $item['tipo'] ?? null;
+            //obteniendo el id del item
+            $id = $item['id'];
+            //obteniendo la cantidad, si no hay es 1
+            $cantidad = isset($item['cantidad']) ? (int)$item['cantidad'] : 1;
+
+            if (!$tipo || !$id) {
+                logger()->warning('Item inválido en carrito (falta tipo o id)', ['key' => $key, 'item' => $item]);
+                continue;
             }
+            //obteniendo el precio
+            $precioUnitario = isset($item['precio']) ? (float)$item['precio'] : null;
+            if ($precioUnitario === null) {
+                if ($tipo === 'computadora') {
+                    $modelo = Computadora::find($id);
+                    if (! $modelo) {
+                        continue;
+                    }
+                    $precioUnitario = (float) $modelo->precio;
+                } elseif ($tipo === 'componente') {
+                    $modelo = Componente::find($id);
+                    if (! $modelo) {
+                        continue;
+                    }
+                    $precioUnitario = (float) $modelo->precio;
+                }
+            }
+            $subtotal = $precioUnitario * $cantidad;
+            $total += $subtotal;
         }
-        logger()->info('Total calculado: ' . $total);
         return $total;
     }
 }
