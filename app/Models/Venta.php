@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 class Venta extends Model
 {
     protected $table = 'Venta';
-    protected $fillable = ['total', 'nitUsuario', 'nitEmpleado', 'estado'];
+    protected $fillable = ['total', 'nitUsuario', 'nitEmpleado', 'estado', 'fecha'];
     public $timestamps = false;
 
     public function cliente(): BelongsTo

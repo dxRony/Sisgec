@@ -15,11 +15,13 @@ use App\Http\Controllers\Empleado\ComputadoraController as EmpleadoComputerContr
 use App\Http\Controllers\Empleado\ComponenteController as EmpleadoComponenteController;
 use App\Http\Controllers\Empleado\CarritoController as EmpleadoCarritoController;
 use App\Http\Controllers\Empleado\VenderController as VenderController;
+use App\Http\Controllers\Empleado\EnsamblajeController as EmpleadoEnsamblajeController;
 
 use App\Http\Controllers\Cliente\ComponenteController as ClienteComponenteController;
 use App\Http\Controllers\Cliente\ComputadoraController as ClienteComputerController;
 use App\Http\Controllers\Cliente\CarritoController as ClienteCarritoController;
 use App\Http\Controllers\Cliente\ComprarController as ClienteComprarController;
+use App\Http\Controllers\Cliente\FacturaController as ClienteFacturaController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -82,6 +84,11 @@ Route::prefix('empleado')->middleware(['auth'])->group(function () {
     Route::post('/carrito/eliminar/{id}', [EmpleadoCarritoController::class, 'eliminar'])->name('empleado.carrito.eliminar');
     Route::post('/carrito/agregarComponente/{id}', [EmpleadoCarritoController::class, 'agregarComponente'])->name('empleado.carrito.agregarComponente');
     Route::post('/carrito/comprar', [VenderController::class, 'realizarCompra'])->name('empleado.carrito.comprar');
+    //ensamblajes
+    Route::get('/ensamblajes/listar', [EmpleadoEnsamblajeController::class, 'listar'])->name('empleado.ensamblajes.listar');
+    Route::get('/ensamblajes/listarMios', [EmpleadoEnsamblajeController::class, 'listarMios'])->name('empleado.ensamblajes.listarMios');
+    Route::get('/ensamblajes/{id}/adquirir', [EmpleadoEnsamblajeController::class, 'adquirir'])->name('empleado.ensamblajes.adquirir');
+    Route::get('/ensamblajes/{id}/ensamblar', [EmpleadoEnsamblajeController::class, 'ensamblar'])->name('empleado.ensamblajes.ensamblar');
 });
 //rutas de cliente
 Route::prefix('cliente')->middleware(['auth'])->group(function () {
@@ -99,4 +106,8 @@ Route::prefix('cliente')->middleware(['auth'])->group(function () {
     Route::post('/carrito/eliminar/{id}', [ClienteCarritoController::class, 'eliminar'])->name('cliente.carrito.eliminar');
     Route::post('/carrito/agregarComponente/{id}', [ClienteCarritoController::class, 'agregarComponente'])->name('cliente.carrito.agregarComponente');
     Route::post('/carrito/comprar', [ClienteComprarController::class, 'realizarCompra'])->name('cliente.carrito.comprar');
+    //compras
+    Route::get('/compras/listar', [ClienteComprarController::class, 'listarCompras'])->name('cliente.compras.listar');
+    //facturas
+    Route::get('/cliente/factura/{id}', [ClienteFacturaController::class, 'ver'])->name('cliente.factura.ver');
 });

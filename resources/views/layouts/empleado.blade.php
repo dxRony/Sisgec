@@ -50,7 +50,8 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Gestion de trabajos</a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Listar trabajos pendientes</a></li>
+                            <li><a class="dropdown-item" href="/empleado/ensamblajes/listar">Listar ensamblajes pendientes</a></li>
+                            <li><a class="dropdown-item" href="/empleado/ensamblajes/listarMios">Listar mis ensamblajes pendientes</a></li>
                         </ul>
                     </li>
                     <li class="nav-item">

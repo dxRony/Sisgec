@@ -5,8 +5,7 @@ Modulo de administracion:
 - reportes (supervision de ventas, supervision de pedidos, atencion al cliente).
 
 Modulo de empleado:
-- listar, editar y adquirir ensamblajes (Ensamblaje where idEmpleado === this.id).
 
 Modulo de cliente:
-- consulta de compras por usuario (adjuntar factura).
+- afinar factura
 - implemantar atencion al cliente (registrar queja y sugerencia)

@@ -37,7 +37,12 @@
                             <li><a class="dropdown-item" href="/cliente/componentes/listar">Componentes en inventario</a></li>
                         </ul>
                     </li>
-
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Mis compras</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="/cliente/compras/listar">Historial de compras</a></li>
+                        </ul>
+                    </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Queja o sugerencia</a>
                         <ul class="dropdown-menu">

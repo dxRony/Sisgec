@@ -32,8 +32,9 @@ class ComprarController extends Controller
             $venta = Venta::create([
                 'total' => $this->calcularTotalCompra($carrito),
                 'nitUsuario' => $user->id,
-                'nitEmpleado' => 1,
+                'nitEmpleado' => 4,
                 'estado' => 'en proceso',
+                'fecha' => now(),
             ]);
             //estado para determinar en la venta
             $todoEnsamblado = true;
@@ -92,7 +93,7 @@ class ComprarController extends Controller
             //confirmando inserts y vaciando el carrito
             DB::commit();
             session()->forget('carrito');
-            return redirect()->route('cliente.carrito.index')->with('success', 'Compra realizada con éxito.');
+            return redirect()->route('cliente.carrito.index')->with('success', 'Compra realizada con éxito, consulta el estado de tu compra en "Mis compras".');
         } catch (\Exception $e) {
             DB::rollBack();
             return back()->withErrors(['error' => 'Error al procesar la compra: ' . $e->getMessage()]);
@@ -136,5 +137,31 @@ class ComprarController extends Controller
             $total += $subtotal;
         }
         return $total;
+    }
+
+    public function listarCompras()
+    {
+        $user = Auth::user();
+        logger()->info('Listando compras para el usuario', ['user_id' => $user->id]);
+
+        $compras = Venta::where('nitUsuario', $user->id)
+            ->with(['factura', 'detalles.computadora.componentes', 'detalles.componente'])
+            ->orderBy('fecha', 'desc')
+            ->get();
+
+        return view('cliente.compras.listar', compact('compras'));
+    }
+
+    public function verFactura($id)
+    {
+        $user = Auth::user();
+        $factura = Factura::where('id', $id)
+            ->whereHas('venta', function ($query) use ($user) {
+                $query->where('nitUsuario', $user->id);
+            })
+            ->with(['venta.detalles.computadora.componentes', 'venta.detalles.componente'])
+            ->firstOrFail();
+
+        return view('cliente.facturas.ver', compact('factura'));
     }
 }

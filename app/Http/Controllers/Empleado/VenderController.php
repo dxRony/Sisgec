@@ -36,6 +36,7 @@ class VenderController extends Controller
                 'nitUsuario' => $request->input('usuario_id'),
                 'nitEmpleado' => $user->id,
                 'estado' => 'en proceso',
+                'fecha' => now(),
             ]);
             //estado para determinar en la venta
             $todoEnsamblado = true;
@@ -88,7 +89,6 @@ class VenderController extends Controller
                     'idVenta' => $venta->id,
                     'nit' => $venta->nitUsuario,
                     'fecha' => now(),
-                    'numeroFactura' => 'FACTURA NO. ' . str_pad($venta->id, 6, '0', STR_PAD_LEFT),
                 ]);
             }
             //confirmando inserts y vaciando el carrito
