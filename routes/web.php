@@ -9,6 +9,8 @@ use App\Http\Controllers\Admin\DashboardController as AdminDashboard;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\Admin\ComponenteController as AdminComponenteController;
 use App\Http\Controllers\Admin\ComputadoraController as AdminComputerController;
+use App\Http\Controllers\Admin\EnsamblajeController as AdminEnsamblajeController;
+use App\Http\Controllers\Admin\ReporteController as ReporteController;
 
 use App\Http\Controllers\Empleado\ClienteController as EmpleadoUserController;
 use App\Http\Controllers\Empleado\ComputadoraController as EmpleadoComputerController;
@@ -65,6 +67,9 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
     Route::get('/ventas/listar', [App\Http\Controllers\Admin\VentaController::class, 'listar'])->name('admin.ventas.listar');
     //facturas
     Route::get('/factura/{id}', [App\Http\Controllers\Admin\FacturaController::class, 'ver'])->name('admin.factura.ver');
+    //ensamblajes
+    Route::get('/ensamblajes/listar', [AdminEnsamblajeController::class, 'listar'])->name('admin.ensamblajes.listar');
+    Route::get('/reportes/componentesMasVendidos', [ReporteController::class, 'componentesMasVendidos'])->name('admin.reportes.componentes');
 });
 //rutas de empleado
 Route::prefix('empleado')->middleware(['auth'])->group(function () {
