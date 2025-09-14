@@ -19,9 +19,11 @@ class ComprarController extends Controller
     {
         //obteniendo carrito de la sesion
         $carrito = session()->get('carrito', []);
+        logger()->info('Carrito de compra', ['carrito' => $carrito]);
         //obteniendo usuario de la sesion
         $user = Auth::user();
         if (empty($carrito)) {
+            logger()->warning('El carrito está vacío al intentar realizar una compra', ['user_id' => $user->id]);
             return back()->withErrors(['carrito' => 'El carrito está vacío.']);
         }
 
@@ -29,10 +31,11 @@ class ComprarController extends Controller
         DB::beginTransaction();
         try {
             //creando venta
+            logger()->info('Creando venta para el usuario', ['user_id' => $user->id]);
             $venta = Venta::create([
                 'total' => $this->calcularTotalCompra($carrito),
                 'nitUsuario' => $user->id,
-                'nitEmpleado' => 4,
+                'nitEmpleado' => 202031191,
                 'estado' => 'en proceso',
                 'fecha' => now(),
             ]);
@@ -96,6 +99,7 @@ class ComprarController extends Controller
             return redirect()->route('cliente.carrito.index')->with('success', 'Compra realizada con éxito, consulta el estado de tu compra en "Mis compras".');
         } catch (\Exception $e) {
             DB::rollBack();
+            logger()->error('Error al procesar la compra', ['error' => $e->getMessage(), 'user_id' => $user->id]);
             return back()->withErrors(['error' => 'Error al procesar la compra: ' . $e->getMessage()]);
         }
     }
@@ -142,8 +146,6 @@ class ComprarController extends Controller
     public function listarCompras()
     {
         $user = Auth::user();
-        logger()->info('Listando compras para el usuario', ['user_id' => $user->id]);
-
         $compras = Venta::where('nitUsuario', $user->id)
             ->with(['factura', 'detalles.computadora.componentes', 'detalles.componente'])
             ->orderBy('fecha', 'desc')

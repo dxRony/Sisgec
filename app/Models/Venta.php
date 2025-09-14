@@ -37,4 +37,10 @@ class Venta extends Model
     {
         return $this->hasMany(Ensamblaje::class, 'idVenta');
     }
+
+    public function usuario()
+    {
+        // el cliente que hizo la compra
+        return $this->belongsTo(User::class, 'nitUsuario', 'id');
+    }
 }

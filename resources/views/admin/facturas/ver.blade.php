@@ -1,4 +1,4 @@
-@extends('layouts.cliente')
+@extends('layouts.admin')
 
 @section('content')
 <div class="container mt-4">
@@ -64,7 +64,7 @@
         </div>
     </div>
     <div class="mt-3">
-        <a href="{{ route('cliente.compras.listar') }}" class="btn btn-secondary">Regresar</a>
+        <a href="{{ route('admin.ventas.listar') }}" class="btn btn-secondary">Regresar</a>
     </div>
 </div>
 @endsection

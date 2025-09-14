@@ -44,9 +44,9 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Visualización de reportes</a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">pendiente</a></li>
-                            <li><a class="dropdown-item" href="#">pendiente</a></li>
-                            <li><a class="dropdown-item" href="#">pendiente</a></li>
+                            <li><a class="dropdown-item" href="/admin/ventas/listar">Ver ventas</a></li>
+                            <li><a class="dropdown-item" href="#">Ver productos mas vendidos</a></li>
+                            <li><a class="dropdown-item" href="#">Ver productos menos vendidos</a></li>
                         </ul>
                     </li>
                 </ul>

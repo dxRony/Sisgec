@@ -61,6 +61,10 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
     Route::get('/computadoras/{id}/editar', [AdminComputerController::class, 'editarV'])->name('admin.computadoras.edit');
     Route::put('/computadoras/{id}', [AdminComputerController::class, 'editar'])->name('admin.computadoras.update');
     Route::delete('/computadoras/{id}', [AdminComputerController::class, 'eliminar'])->name('admin.computadoras.destroy');
+    //ventas
+    Route::get('/ventas/listar', [App\Http\Controllers\Admin\VentaController::class, 'listar'])->name('admin.ventas.listar');
+    //facturas
+    Route::get('/factura/{id}', [App\Http\Controllers\Admin\FacturaController::class, 'ver'])->name('admin.factura.ver');
 });
 //rutas de empleado
 Route::prefix('empleado')->middleware(['auth'])->group(function () {
@@ -109,5 +113,5 @@ Route::prefix('cliente')->middleware(['auth'])->group(function () {
     //compras
     Route::get('/compras/listar', [ClienteComprarController::class, 'listarCompras'])->name('cliente.compras.listar');
     //facturas
-    Route::get('/cliente/factura/{id}', [ClienteFacturaController::class, 'ver'])->name('cliente.factura.ver');
+    Route::get('/factura/{id}', [ClienteFacturaController::class, 'ver'])->name('cliente.factura.ver');
 });
