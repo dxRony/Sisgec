@@ -1,0 +1,44 @@
+<?php
+
+namespace App\Http\Controllers\Cliente;
+
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use App\Models\ReporteCliente;
+use Illuminate\Support\Facades\Auth;
+use App\Models\User;
+use App\Models\Componente;
+use App\Models\Computadora;
+
+class ReporteClienteController extends Controller
+{
+    public function create()
+    {   
+        //obtener todos los empleados (User rol = 2), componentes y computadoras
+        $empleados = User::all()->where('rol', 2);
+        $componentes = Componente::all();
+        $computadoras = Computadora::all();
+
+        return view('cliente.reportes.create', compact('empleados', 'componentes', 'computadoras'));
+    }
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'tipo' => 'required|in:queja,sugerencia',
+            'descripcion' => 'required|string|max:200',
+        ]);
+
+        ReporteCliente::create([
+            'tipo' => $request->tipo,
+            'descripcion' => $request->descripcion,
+            'idEmpleado' => $request->idEmpleado,
+            'idComponente' => $request->idComponente,
+            'idComputadora' => $request->idComputadora,
+            'nitUsuario' => Auth::id(),
+        ]);
+
+        return redirect()->route('cliente.reportes.create')
+            ->with('success', 'Tu reporte ha sido enviado correctamente, de ser necesario un empleado se pondra en contacto contigo.');
+    }
+}

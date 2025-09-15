@@ -32,7 +32,7 @@
                     </li>
 
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Consulta de inventario</a>
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Componentes</a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="/cliente/componentes/listar">Componentes en inventario</a></li>
                         </ul>
@@ -44,10 +44,9 @@
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Queja o sugerencia</a>
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Atencion al cliente</a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Realiza una sugerencia</a></li>
-                            <li><a class="dropdown-item" href="#">Realiza una queja</a></li>
+                            <li><a class="dropdown-item" href="/cliente/reportes/crear">Realiza una queja o sugerencia</a></li>
                         </ul>
                     </li>
                     <li class="nav-item">

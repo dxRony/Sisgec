@@ -2,9 +2,7 @@ TODO:
 - de ultimo cambiar el id de la venta por el cliente a el 1
 
 Modulo de administracion:
-- reportes (ensamblajes, supervision de pedidos, atencion al cliente).
 
 Modulo de empleado:
 
 Modulo de cliente:
-- implemantar atencion al cliente (registrar queja y sugerencia)

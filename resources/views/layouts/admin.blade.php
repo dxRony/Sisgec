@@ -46,8 +46,9 @@
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="/admin/ventas/listar">Ver ventas</a></li>
                             <li><a class="dropdown-item" href="/admin/ensamblajes/listar">Ver ensamblajes</a></li>
-                            <li><a class="dropdown-item" href="/admin/reportes/componentesMasVendidos">Ver computadoras mas vendidas</a></li>
+                            <li><a class="dropdown-item" href="/admin/reportes/computadorasMasVendidas">Ver computadoras mas vendidas</a></li>
                             <li><a class="dropdown-item" href="/admin/reportes/componentesMasVendidos">Ver componentes mas vendidos</a></li>
+                            <li><a class="dropdown-item" href="/admin/reportes/clientes">Ver reportes de clientes</a></li>
                         </ul>
                     </li>
                 </ul>

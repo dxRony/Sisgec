@@ -64,3 +64,13 @@ Abstraccion de objetos:
 	idEnsamblaje int
 	idComponente int
 	idComponente int
+
+- ReporteCliente
+	id int
+	nitUsuario int
+	tipo (queja o sugerencia) varchar
+	idEmpleado int (si hay un empleado involucrado)
+	idComponente int (si hay un componente involucrado)
+	idComputadora int (si hay una computadora involucrada)
+	descripcion varchar (200)
+

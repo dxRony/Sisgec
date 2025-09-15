@@ -10,7 +10,7 @@ use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\Admin\ComponenteController as AdminComponenteController;
 use App\Http\Controllers\Admin\ComputadoraController as AdminComputerController;
 use App\Http\Controllers\Admin\EnsamblajeController as AdminEnsamblajeController;
-use App\Http\Controllers\Admin\ReporteController as ReporteController;
+use App\Http\Controllers\Admin\ReporteController as AdminReporteController;
 
 use App\Http\Controllers\Empleado\ClienteController as EmpleadoUserController;
 use App\Http\Controllers\Empleado\ComputadoraController as EmpleadoComputerController;
@@ -24,6 +24,7 @@ use App\Http\Controllers\Cliente\ComputadoraController as ClienteComputerControl
 use App\Http\Controllers\Cliente\CarritoController as ClienteCarritoController;
 use App\Http\Controllers\Cliente\ComprarController as ClienteComprarController;
 use App\Http\Controllers\Cliente\FacturaController as ClienteFacturaController;
+use App\Http\Controllers\Cliente\ReporteClienteController as ReporteClienteController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -69,8 +70,14 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
     Route::get('/factura/{id}', [App\Http\Controllers\Admin\FacturaController::class, 'ver'])->name('admin.factura.ver');
     //ensamblajes
     Route::get('/ensamblajes/listar', [AdminEnsamblajeController::class, 'listar'])->name('admin.ensamblajes.listar');
-    Route::get('/reportes/componentesMasVendidos', [ReporteController::class, 'componentesMasVendidos'])->name('admin.reportes.componentes');
+    //reportes
+    Route::get('/reportes/componentesMasVendidos', [AdminReporteController::class, 'componentesMasVendidos'])->name('admin.reportes.componentes');
+    Route::get('/reportes/computadorasMasVendidas', [AdminReporteController::class, 'computadorasMasVendidas'])->name('admin.reportes.computadoras');
+    Route::get('/reportes/clientes', [AdminReporteController::class, 'index'])->name('admin.reportes.clientes');
 });
+
+Route::prefix('admin/reportes')->middleware('auth')->group(function () {});
+
 //rutas de empleado
 Route::prefix('empleado')->middleware(['auth'])->group(function () {
     //clientes
@@ -119,4 +126,7 @@ Route::prefix('cliente')->middleware(['auth'])->group(function () {
     Route::get('/compras/listar', [ClienteComprarController::class, 'listarCompras'])->name('cliente.compras.listar');
     //facturas
     Route::get('/factura/{id}', [ClienteFacturaController::class, 'ver'])->name('cliente.factura.ver');
+    //reportes de cliente
+    Route::get('/reportes/crear', [ReporteClienteController::class, 'create'])->name('cliente.reportes.create');
+    Route::post('/reportes/guardar', [ReporteClienteController::class, 'store'])->name('cliente.reportes.store');
 });
