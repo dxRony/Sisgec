@@ -28,7 +28,7 @@
         </div>
 
         <div class="mb-3">
-            <label class="form-label">Usuario</label>
+            <label class="form-label">Usuario (maximo 20 caracteres)</label>
             <input type="text" name="username" class="form-control" value="{{ old('username', $cliente->username) }}" required>
         </div>
 

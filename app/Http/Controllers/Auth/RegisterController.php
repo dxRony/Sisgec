@@ -17,7 +17,7 @@ class RegisterController extends Controller
 
     public function register(Request $request)
     {
-        //validando datos del form
+        //validando datos del form en la DB
         $request->validate([
             'nit' => 'required|integer|unique:users,id',
             'nombre' => 'required|string|max:100',

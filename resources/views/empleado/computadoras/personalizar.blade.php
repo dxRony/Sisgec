@@ -13,7 +13,6 @@
         </ul>
     </div>
     @endif
-    
     <form action="{{ route('empleado.computadoras.personalizar.post', $computadora->id) }}" method="POST">
         @csrf
         <table class="table table-bordered">

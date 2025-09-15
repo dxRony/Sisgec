@@ -40,7 +40,7 @@
                     </li>
 
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Realizar venta</a>
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Vender computadora</a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="/empleado/computadoras/listar">Computadoras armadas</a></li>
                             <li><a class="dropdown-item" href="/empleado/computadoras/registrar">Armar computadora desde cero</a></li>

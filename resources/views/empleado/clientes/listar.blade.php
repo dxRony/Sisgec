@@ -27,10 +27,10 @@
                 <td>{{ $cliente->name }}</td>
                 <td>{{ $cliente->email }}</td>
                 <td>{{ $cliente->username }}</td>
-                <td>{{ $cliente->celular }}</td>                
+                <td>{{ $cliente->celular }}</td>
                 <td>{{ $cliente->activo ? 'Si' : 'No' }}</td>
-                <td><a href="{{ route('empleado.clientes.edit', $cliente->id) }}" class="btn btn-primary btn-sm">Editar</a></td>                  
-            </tr>            
+                <td><a href="{{ route('empleado.clientes.edit', $cliente->id) }}" class="btn btn-primary btn-sm">Editar</a></td>
+            </tr>
             @endforeach
         </tbody>
     </table>

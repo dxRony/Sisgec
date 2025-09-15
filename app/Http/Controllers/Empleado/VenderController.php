@@ -18,7 +18,6 @@ class VenderController extends Controller
 {
     public function realizarCompra(Request $request)
     {
-
         //obteniendo carrito de la sesion
         $carrito = session()->get('carrito', []);
         //obteniendo usuario de la sesion
@@ -26,7 +25,6 @@ class VenderController extends Controller
         if (empty($carrito)) {
             return back()->withErrors(['carrito' => 'El carrito está vacío.']);
         }
-
         //transaccion-rollback, por si algo sale mal
         DB::beginTransaction();
         try {
@@ -63,13 +61,13 @@ class VenderController extends Controller
                         'idEmpleado' => $user->id,
                         'estado' => $estadoEnsamblaje,
                     ]);
-
+                    //si algun detalleVenta no esta ensamblado, la venta no se finaliza
                     if ($estadoEnsamblaje !== 'ensamblado') {
                         $todoEnsamblado = false;
                     }
                 } elseif ($item['tipo'] === 'componente') {
                     $componente = Componente::findOrFail($item['id']);
-                    //si el item en el carrito es componente se crea el detalleventa, no necesita todo el ensamblaje
+                    //si el item en el carrito es componente se crea el detalleventa, no necesita el ensamblaje
                     DetalleVenta::create([
                         'idVenta' => $venta->id,
                         'idComponente' => $componente->id,
@@ -84,15 +82,16 @@ class VenderController extends Controller
                 //si todos los detalleVenta estan ensamblados, se crea la factura y se finaliza la compra
                 Ensamblaje::where('idVenta', $venta->id)->update(['estado' => 'vendido']);
                 $venta->update(['estado' => 'finalizada']);
-
+                //creando factura
                 Factura::create([
                     'idVenta' => $venta->id,
                     'nit' => $venta->nitUsuario,
                     'fecha' => now(),
                 ]);
             }
-            //confirmando inserts y vaciando el carrito
+            //confirmando inserts, updates y create, etc
             DB::commit();
+            //"vaciando" el carrito
             session()->forget('carrito');
             return redirect()->route('empleado.carrito.index')->with('success', 'Venta realizada con éxito.');
         } catch (\Exception $e) {

@@ -22,7 +22,7 @@
             <select name="componentes[procesador]" class="form-select">
                 <option value="">-- Seleccionar procesador --</option>
                 @foreach($procesadores as $procesador)
-                <option value="{{ $procesador->id }}">{{ $procesador->marca }} - {{ $procesador->velocidad }} GHz</option>
+                <option value="{{ $procesador->id }}">{{ $procesador->marca }} - {{ $procesador->velocidad }} GHz - Q.{{ $procesador->precio }}</option>
                 @endforeach
             </select>
         </div>
@@ -31,7 +31,7 @@
             <select name="componentes[fuente]" class="form-select">
                 <option value="">-- Seleccionar fuente de poder --</option>
                 @foreach($fuentes as $fuente)
-                <option value="{{ $fuente->id }}">{{ $fuente->marca }} - {{ $fuente->potencia }}W</option>
+                <option value="{{ $fuente->id }}">{{ $fuente->marca }} - {{ $fuente->potencia }}W - Q.{{ $fuente->precio }}</option>
                 @endforeach
             </select>
         </div>
@@ -40,7 +40,7 @@
             <select name="componentes[gabinete]" class="form-select">
                 <option value="">-- Seleccionar gabinete --</option>
                 @foreach($gabinetes as $gabinete)
-                <option value="{{ $gabinete->id }}">{{ $gabinete->marca }} - {{ $gabinete->color }}</option>
+                <option value="{{ $gabinete->id }}">{{ $gabinete->marca }} - {{ $gabinete->color }} - Q.{{ $gabinete->precio }}</option>
                 @endforeach
             </select>
         </div>
@@ -50,7 +50,7 @@
             <div class="form-check">
                 <input class="form-check-input" type="checkbox" name="componentes[rams][{{ $ram->id }}]" value="1">
                 <label class="form-check-label">
-                    {{ $ram->marca }} - {{ $ram->capacidad }}GB - {{ $ram->tipo }}
+                    {{ $ram->marca }} - {{ $ram->capacidad }}GB - {{ $ram->tipo }} - Q.{{ $ram->precio}}
                 </label>
                 <input type="number" name="cantidades[rams][{{ $ram->id }}]" min="1" placeholder="Cantidad">
             </div>
@@ -62,7 +62,7 @@
             <div class="form-check">
                 <input class="form-check-input" type="checkbox" name="componentes[storages][{{ $storage->id }}]" value="1">
                 <label class="form-check-label">
-                    {{ $storage->marca }} - {{ $storage->capacidad }}GB - {{ $storage->tipo }}
+                    {{ $storage->marca }} - {{ $storage->capacidad }}GB - {{ $storage->tipo }} - Q.{{$storage->precio}}
                 </label>
                 <input type="number" name="cantidades[storages][{{ $storage->id }}]" min="1" placeholder="Cantidad">
             </div>
