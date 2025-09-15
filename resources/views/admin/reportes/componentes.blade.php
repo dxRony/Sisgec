@@ -24,7 +24,7 @@
                 <td>{{ $item->componente->tipoComponente ?? 'N/A' }}</td>
                 <td>{{ $item->componente->marca ?? 'N/A' }}</td>
                 <td>Q{{ number_format($item->componente->precio ?? 0, 2) }}</td>
-                <td>{{ $item->total_vendido }}</td>
+                <td>{{ $item->totalVendido }}</td>
             </tr>
             @endforeach
         </tbody>

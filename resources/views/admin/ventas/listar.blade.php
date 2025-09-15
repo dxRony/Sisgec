@@ -20,7 +20,14 @@
         </div>
         <div class="col-md-3">
             <label class="form-label">Tipo de componente</label>
-            <input type="text" name="producto" value="{{ request('producto') }}" class="form-control" placeholder="Procesador, Memoria RAM, etc.">
+            <select name="producto" class="form-select">
+                <option value="">Todos</option>
+                <option value="Procesador" {{ request('producto')=='Procesador' ? 'selected' : '' }}>Procesador</option>
+                <option value="Memoria RAM" {{ request('producto')=='Memoria RAM' ? 'selected' : '' }}>Memoria RAM</option>
+                <option value="Almacenamiento" {{ request('producto')=='Almacenamiento' ? 'selected' : '' }}>Almacenamiento</option>
+                <option value="Fuente De Poder" {{ request('producto')=='Fuente De Poder' ? 'selected' : '' }}>Fuente De Poder</option>
+                <option value="Gabinete" {{ request('producto')=='Gabinete' ? 'selected' : '' }}>Gabinete</option>
+            </select>
         </div>
         <div class="col-12 text-end">
             <button type="submit" class="btn btn-dark">Filtrar</button>
@@ -50,22 +57,22 @@
                 <td>
                     <ul>
                         @foreach($compra->detalles as $detalle)
-                            @if($detalle->computadora)
-                                <li>
-                                    <strong>Computadora #{{ $detalle->computadora->id }}</strong> (x{{ $detalle->cantidad }})
-                                    <ul>
-                                        @foreach($detalle->computadora->componentes as $componente)
-                                            <li>{{ $componente->tipoComponente }} / {{ $componente->marca }} - Q{{ number_format($componente->precio, 2) }}</li>
-                                        @endforeach
-                                    </ul>
-                                </li>
-                            @elseif($detalle->componente)
-                                <li>
-                                    <strong>Componente:</strong> {{ $detalle->componente->tipoComponente }} / {{ $detalle->componente->marca }}
-                                    - Q{{ number_format($detalle->componente->precio, 2) }}
-                                    (x{{ $detalle->cantidad }})
-                                </li>
-                            @endif
+                        @if($detalle->computadora)
+                        <li>
+                            <strong>Computadora #{{ $detalle->computadora->id }}</strong> (x{{ $detalle->cantidad }})
+                            <ul>
+                                @foreach($detalle->computadora->componentes as $componente)
+                                <li>{{ $componente->tipoComponente }} / {{ $componente->marca }} - Q{{ number_format($componente->precio, 2) }}</li>
+                                @endforeach
+                            </ul>
+                        </li>
+                        @elseif($detalle->componente)
+                        <li>
+                            <strong>Componente:</strong> {{ $detalle->componente->tipoComponente }} / {{ $detalle->componente->marca }}
+                            - Q{{ number_format($detalle->componente->precio, 2) }}
+                            (x{{ $detalle->cantidad }})
+                        </li>
+                        @endif
                         @endforeach
                     </ul>
                 </td>
@@ -73,20 +80,20 @@
                 <td>{{ $compra->empleado->name ?? 'Sistema' }}</td>
                 <td>
                     @if($compra->estado === 'en proceso')
-                        <span class="badge bg-warning text-dark">En proceso</span>
+                    <span class="badge bg-warning text-dark">En proceso</span>
                     @elseif($compra->estado === 'finalizada')
-                        <span class="badge bg-success">Finalizada</span>
+                    <span class="badge bg-success">Finalizada</span>
                     @else
-                        <span class="badge bg-secondary">{{ ucfirst($compra->estado) }}</span>
+                    <span class="badge bg-secondary">{{ ucfirst($compra->estado) }}</span>
                     @endif
                 </td>
                 <td>
                     @if($compra->estado === 'finalizada' && $compra->factura)
-                        <a href="{{ route('admin.factura.ver', $compra->factura->id) }}" class="btn btn-primary btn-sm">
-                            Ver Factura
-                        </a>
+                    <a href="{{ route('admin.factura.ver', $compra->factura->id) }}" class="btn btn-primary btn-sm">
+                        Ver Factura
+                    </a>
                     @else
-                        <span class="text-muted">No disponible</span>
+                    <span class="text-muted">No disponible</span>
                     @endif
                 </td>
                 <td>{{ $compra->fecha }}</td>

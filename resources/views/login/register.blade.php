@@ -34,7 +34,7 @@
             </div>
 
             <div class="mb-3">
-                <label for="username" class="form-label">Usuario</label>
+                <label for="username" class="form-label">Usuario (maximo 20 caracteres)</label>
                 <input type="text" name="username" class="form-control" required value="{{ old('username') }}">
             </div>
 
@@ -44,7 +44,7 @@
             </div>
 
             <div class="mb-3">
-                <label for="password" class="form-label">Contraseña</label>
+                <label for="password" class="form-label">Contraseña (minimo 6 caracteres)</label>
                 <input type="password" name="password" class="form-control" required>
             </div>
 

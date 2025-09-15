@@ -28,7 +28,7 @@
                             @endforeach
                         </ul>
                     </td>
-                    <td>{{ $item->total_vendido }}</td>
+                    <td>{{ $item->totalVendido }}</td>
                 </tr>
                 @endforeach
             </tbody>

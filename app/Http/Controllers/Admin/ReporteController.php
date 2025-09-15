@@ -15,15 +15,15 @@ class ReporteController extends Controller
 {
     public function componentesMasVendidos()
     {
-        // Agrupar por componente y contar total vendido
+        //obteniendo los componentes y su total de vendidos
         $componentes = DetalleVenta::select(
             'idComponente',
-            DB::raw('SUM(cantidad) as total_vendido')
+            DB::raw('SUM(cantidad) as totalVendido')
         )
-            ->whereNotNull('idComponente') // solo componentes, no computadoras
+            ->whereNotNull('idComponente')
             ->groupBy('idComponente')
-            ->with('componente') // traer datos del componente
-            ->orderByDesc('total_vendido')
+            ->with('componente')
+            ->orderByDesc('totalVendido')
             ->get();
 
         return view('admin.reportes.componentes', compact('componentes'));
@@ -31,25 +31,25 @@ class ReporteController extends Controller
 
     public function computadorasMasVendidas()
     {
-        // Agrupar por computadora y contar total vendido
+        //obteniendo las computadoras con el id y la suma de las veces que han sido vendidas
         $computadoras = DetalleVenta::select(
             'idComputadora',
-            DB::raw('SUM(cantidad) as total_vendido')
+            DB::raw('SUM(cantidad) as totalVendido')
         )
-            ->whereNotNull('idComputadora') // solo computadoras
+            ->whereNotNull('idComputadora')
             ->groupBy('idComputadora')
-            ->with('computadora.componentes') // traer la computadora y sus componentes
-            ->orderByDesc('total_vendido')
+            ->with('computadora.componentes')
+            ->orderByDesc('totalVendido')
             ->get();
-
+        // enviando a vista con las cantidades vendidas por computadoras
         return view('admin.reportes.computadoras', compact('computadoras'));
     }
 
-    public function index(Request $request)
+    public function reporteClientes(Request $request)
     {
+        //preparando peticion
         $query = ReporteCliente::query();
-
-        // filtros dinámicos
+        //evaluando filtros
         if ($request->filled('tipo')) {
             $query->where('tipo', $request->tipo);
         }
@@ -68,15 +68,14 @@ class ReporteController extends Controller
         if ($request->filled('fecha')) {
             $query->whereDate('fecha', $request->fecha);
         }
-
+        //ordenado peticion
         $reportes = $query->orderBy('fecha', 'desc')->get();
-
-        // para mostrar en selects
+        //obteniendo datos para los selects
         $empleados = User::all()->where('rol', 2);
         $componentes = Componente::all();
         $computadoras = Computadora::all();
         $clientes = User::all()->where('rol', 3);
-
+        //enviando a vista con los instrumentos necesarios
         return view('admin.reportes.clientes', compact('reportes', 'empleados', 'componentes', 'computadoras', 'clientes'));
     }
 }

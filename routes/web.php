@@ -73,11 +73,8 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
     //reportes
     Route::get('/reportes/componentesMasVendidos', [AdminReporteController::class, 'componentesMasVendidos'])->name('admin.reportes.componentes');
     Route::get('/reportes/computadorasMasVendidas', [AdminReporteController::class, 'computadorasMasVendidas'])->name('admin.reportes.computadoras');
-    Route::get('/reportes/clientes', [AdminReporteController::class, 'index'])->name('admin.reportes.clientes');
+    Route::get('/reportes/clientes', [AdminReporteController::class, 'reporteClientes'])->name('admin.reportes.clientes');
 });
-
-Route::prefix('admin/reportes')->middleware('auth')->group(function () {});
-
 //rutas de empleado
 Route::prefix('empleado')->middleware(['auth'])->group(function () {
     //clientes

@@ -3,8 +3,6 @@
 @section('content')
 <div class="container mt-4">
     <h2 class="lbl-1">Reportes de Clientes</h2>
-
-    <!-- Filtros -->
     <form method="GET" action="{{ route('admin.reportes.clientes') }}" class="row g-3 mb-4">
         <div class="col-md-2">
             <label class="form-label">Tipo</label>
@@ -14,7 +12,6 @@
                 <option value="sugerencia" {{ request('tipo')=='sugerencia' ? 'selected' : '' }}>Sugerencia</option>
             </select>
         </div>
-
         <div class="col-md-2">
             <label class="form-label">Empleado</label>
             <select name="idEmpleado" class="form-select">
@@ -26,7 +23,6 @@
                 @endforeach
             </select>
         </div>
-
         <div class="col-md-2">
             <label class="form-label">Componente</label>
             <select name="idComponente" class="form-select">
@@ -38,19 +34,17 @@
                 @endforeach
             </select>
         </div>
-
         <div class="col-md-2">
             <label class="form-label">Computadora</label>
             <select name="idComputadora" class="form-select">
                 <option value="">Todas</option>
                 @foreach($computadoras as $computadora)
                 <option value="{{ $computadora->id }}" {{ request('idComputadora')==$computadora->id ? 'selected' : '' }}>
-                   ID: {{ $computadora->id }}
+                    ID: {{ $computadora->id }}
                 </option>
                 @endforeach
             </select>
         </div>
-
         <div class="col-md-2">
             <label class="form-label">Cliente (NIT)</label>
             <select name="nitUsuario" class="form-select">
@@ -62,7 +56,6 @@
                 @endforeach
             </select>
         </div>
-
         <div class="col-md-2">
             <label class="form-label">Fecha</label>
             <input type="date" name="fecha" class="form-control" value="{{ request('fecha') }}">
@@ -73,8 +66,6 @@
             <a href="{{ route('admin.reportes.clientes') }}" class="btn btn-secondary">Limpiar</a>
         </div>
     </form>
-
-    <!-- Tabla -->
     <table class="table table-bordered table-striped">
         <thead class="table-dark">
             <tr>

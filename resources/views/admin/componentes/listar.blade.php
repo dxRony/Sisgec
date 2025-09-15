@@ -23,7 +23,7 @@
                 <th>Eficencia</th>
                 <th>Color</th>
                 <th>Stock</th>
-                <th>Precio</th>                
+                <th>Precio</th>
                 <th>Accion</th>
             </tr>
         </thead>
@@ -39,9 +39,9 @@
                 <td>{{ $componente->velocidad }} GHz</td>
                 @elseif($componente-> tipoComponente == 'Memoria RAM')
                 <td>{{ $componente->velocidad }} MHz</td>
-                @else 
+                @else
                 <td>{{ $componente->velocidad ?? '-' }}</td>
-                @endif                
+                @endif
                 <td>{{ $componente->capacidad ?? '-' }}</td>
                 <td>{{ $componente->tipo ?? '-' }}</td>
                 <td>{{ $componente->potencia ?? '-' }}</td>
@@ -50,15 +50,16 @@
                 <td>{{ $componente->stock }}</td>
                 <td>Q.{{ $componente->precio }}</td>
                 <td>
-                    <a href="{{ route('admin.componentes.edit', $componente->id) }}" 
-                       class="btn btn-warning btn-sm">Editar</a>
+                    <a href="{{ route('admin.componentes.edit', $componente->id) }}"
+                        class="btn btn-warning btn-sm">Editar</a>
 
-                    <form action="{{ route('admin.componentes.destroy', $componente->id) }}" 
-                          method="POST" 
-                          style="display:inline-block;"
-                          onsubmit="return confirm('Eliminar el componente: {{$componente->tipoComponente}}, en caso de tener datos incorrectos');">
+                    <form action="{{ route('admin.componentes.destroy', $componente->id) }}"
+                        method="POST"
+                        style="display:inline-block;"
+                        onsubmit="return confirm('Eliminar el componente: {{$componente->tipoComponente}}, en caso de tener datos incorrectos');">
                         @csrf
                         @method('DELETE')
+                        <p></p>
                         <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
                     </form>
                 </td>

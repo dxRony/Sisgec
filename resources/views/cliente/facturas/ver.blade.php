@@ -4,7 +4,7 @@
 <div class="container mt-4">
     <div class="card shadow">
         <div class="card-header bg-dark text-white">
-            <h4>{{ $factura->numeroFactura }}</h4>
+            <h4>Factura No. {{ $factura->id }}</h4>
         </div>
         <div class="card-body">
             <div class="row mb-3">

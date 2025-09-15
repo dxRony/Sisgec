@@ -19,13 +19,13 @@
         </div>
 
         <div class="mb-3">
-            <label class="form-label">Usuario</label>
+            <label class="form-label">Usuario (maximo 20 caracteres)</label>
             <input type="text" name="username" class="form-control" value="{{ old('username') }}" required>
             @error('username') <small class="text-danger">{{ $message }}</small> @enderror
         </div>
 
         <div class="mb-3">
-            <label class="form-label">Contraseña</label>
+            <label class="form-label">Contraseña (minimo 6 caracteres)</label>
             <input type="password" name="password" class="form-control" required>
             @error('password') <small class="text-danger">{{ $message }}</small> @enderror
         </div>

@@ -12,7 +12,9 @@
 <body>
     <div class="login-container">
         <h2>Iniciar sesión</h2>
-
+        @if(session('success'))
+        <div class="alert alert-success">{{ session('success') }}</div>
+        @endif
         @if($errors->any())
         <div style="color:red; text-align: center; margin-bottom: 1rem;">
             {{ $errors->first('login') }}

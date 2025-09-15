@@ -1,8 +1,9 @@
 TODO:
 - de ultimo cambiar el id de la venta por el cliente a el 1
+- estadisticas avanzadas???
 
 Modulo de administracion:
-
+	- notificar al admin si algun componente tiene stock de 10 o computadora tiene disponibilidad de 5
 Modulo de empleado:
 
 Modulo de cliente:

@@ -38,8 +38,9 @@
                     <a href="{{ route('admin.usuarios.edit', $usuario->id) }}" class="btn btn-primary btn-sm">Editar</a>
                     @else
                     <a href="{{ route('admin.usuarios.edit', $usuario->id) }}" class="btn btn-primary btn-sm">Editar (Tú)</a>
-                    @endif</td>                    
-            </tr>            
+                    @endif
+                </td>
+            </tr>
             @endforeach
         </tbody>
     </table>

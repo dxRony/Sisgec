@@ -17,14 +17,15 @@ class RegisterController extends Controller
 
     public function register(Request $request)
     {
+        //validando datos del form
         $request->validate([
             'nit' => 'required|integer|unique:users,id',
             'nombre' => 'required|string|max:100',
-            'username' => 'required|string|max:100|unique:users,username',
+            'username' => 'required|string|max:20|unique:users,username',
             'password' => 'required|string|min:6|confirmed',
             'celular' => 'required|numeric',
         ]);
-
+        //creando usuario cliente
         User::create([
             'id' => $request->nit,
             'name' => $request->nombre,

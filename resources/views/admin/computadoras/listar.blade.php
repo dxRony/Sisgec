@@ -19,10 +19,10 @@
             </tr>
         </thead>
         <tbody>
-            @foreach($computadoras as $comp)
+            @foreach($computadoras as $computadora)
             <tr>
-                <td><strong>{{ $comp->id }}</strong></td>
-                <td>{{ $comp->disponibilidad }}</td>
+                <td><strong>{{ $computadora->id }}</strong></td>
+                <td>{{ $computadora->disponibilidad }}</td>
                 <td>
                     <table class="table table-sm table-striped">
                         <thead>
@@ -36,39 +36,39 @@
                         <tbody>
                             @php
                             $precioTotal = 0;
-                            foreach($comp->componentes as $c) {
-                            $cantidad = ($c->tipoComponente === 'Memoria RAM' || $c->tipoComponente === 'Almacenamiento') ? $c->pivot->cantidad: 1;
-                            $precioTotal += $c->precio * $cantidad;
+                            foreach($computadora->componentes as $componente) {
+                            $cantidad = ($componente->tipoComponente === 'Memoria RAM' || $componente->tipoComponente === 'Almacenamiento') ? $componente->pivot->cantidad: 1;
+                            $precioTotal += $componente->precio * $cantidad;
                             }
                             @endphp
-                            @foreach($comp->componentes as $c)
+                            @foreach($computadora->componentes as $componente)
                             <tr>
-                                <td>{{ $c->tipoComponente }}</td>
-                                <td>{{ $c->marca }}</td>
+                                <td>{{ $componente->tipoComponente }}</td>
+                                <td>{{ $componente->marca }}</td>
                                 <td>
-                                    @if($c->tipoComponente === 'Procesador')
-                                    Velocidad: {{ $c->velocidad }} GHz <br>
-                                    Núcleos: {{ $c->nucleos }} <br>
-                                    Consumo: {{ $c->consumoEnergetico }} W
-                                    @elseif($c->tipoComponente === 'Fuente De Poder')
-                                    Potencia: {{ $c->potencia }} W <br>
-                                    Eficiencia: {{ $c->eficiencia }}
-                                    @elseif($c->tipoComponente === 'Gabinete')
-                                    Color: {{ $c->color }}
-                                    @elseif($c->tipoComponente === 'Memoria RAM')
-                                    Velocidad: {{ $c->velocidad }} MHz <br>
-                                    Capacidad: {{ $c->capacidad }} GB <br>
-                                    Tipo: {{ $c->tipo }} <br>
-                                    Consumo: {{ $c->consumoEnergetico }} W
-                                    @elseif($c->tipoComponente === 'Almacenamiento')
-                                    Capacidad: {{ $c->capacidad }} GB <br>
-                                    Tipo: {{ $c->tipo }} <br>
-                                    Consumo: {{ $c->consumoEnergetico }} W
+                                    @if($componente->tipoComponente === 'Procesador')
+                                    Velocidad: {{ $componente->velocidad }} GHz <br>
+                                    Núcleos: {{ $componente->nucleos }} <br>
+                                    Consumo: {{ $componente->consumoEnergetico }} W
+                                    @elseif($componente->tipoComponente === 'Fuente De Poder')
+                                    Potencia: {{ $componente->potencia }} W <br>
+                                    Eficiencia: {{ $componente->eficiencia }}
+                                    @elseif($componente->tipoComponente === 'Gabinete')
+                                    Color: {{ $componente->color }}
+                                    @elseif($componente->tipoComponente === 'Memoria RAM')
+                                    Velocidad: {{ $componente->velocidad }} MHz <br>
+                                    Capacidad: {{ $componente->capacidad }} GB <br>
+                                    Tipo: {{ $componente->tipo }} <br>
+                                    Consumo: {{ $componente->consumoEnergetico }} W
+                                    @elseif($componente->tipoComponente === 'Almacenamiento')
+                                    Capacidad: {{ $componente->capacidad }} GB <br>
+                                    Tipo: {{ $componente->tipo }} <br>
+                                    Consumo: {{ $componente->consumoEnergetico }} W
                                     @endif
                                 </td>
                                 <td>
-                                    @if($c->tipoComponente === 'Memoria RAM' || $c->tipoComponente === 'Almacenamiento')
-                                    {{ $c->pivot->cantidad }}
+                                    @if($componente->tipoComponente === 'Memoria RAM' || $componente->tipoComponente === 'Almacenamiento')
+                                    {{ $componente->pivot->cantidad }}
                                     @else
                                     1
                                     @endif
@@ -82,9 +82,9 @@
                     Q{{ number_format($precioTotal, 2) }}
                 </td>
                 <td>
-                    <a href="{{ route('admin.computadoras.edit', $comp->id) }}" class="btn btn-warning btn-sm">Modificar sotck</a>
-
-                    <form action="{{ route('admin.computadoras.destroy', $comp->id) }}" method="POST" style="display:inline-block;" onsubmit="return confirm('Eliminar la computadora, en caso de tener datos incorrectos');">
+                    <a href="{{ route('admin.computadoras.edit', $computadora->id) }}" class="btn btn-warning btn-sm">Modificar sotck</a>
+                    <p></p>
+                    <form action="{{ route('admin.computadoras.destroy', $computadora->id) }}" method="POST" style="display:inline-block;" onsubmit="return confirm('Eliminar la computadora, en caso de tener datos incorrectos');">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
