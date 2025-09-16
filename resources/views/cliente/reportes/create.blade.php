@@ -7,7 +7,6 @@
     @if(session('success'))
     <div class="alert alert-success">{{ session('success') }}</div>
     @endif
-
     <form action="{{ route('cliente.reportes.store') }}" method="POST">
         @csrf
         <div class="mb-3">
@@ -18,13 +17,10 @@
                 <option value="sugerencia">Sugerencia</option>
             </select>
         </div>
-
         <div class="mb-3">
-            <label class="form-label">Descripción</label>
+            <label class="form-label">Descripción (maximo 200 caracteres)</label>
             <textarea name="descripcion" class="form-control" rows="4" maxlength="200" required></textarea>
         </div>
-
-        {{-- Select para empleado --}}
         <div class="mb-3">
             <label class="form-label">Empleado involucrado (opcional)</label>
             <select name="idEmpleado" class="form-select">
@@ -34,8 +30,6 @@
                 @endforeach
             </select>
         </div>
-
-        {{-- Select para componente --}}
         <div class="mb-3">
             <label class="form-label">Componente involucrado (opcional)</label>
             <select name="idComponente" class="form-select">
@@ -45,8 +39,6 @@
                 @endforeach
             </select>
         </div>
-
-        {{-- Select para computadora --}}
         <div class="mb-3">
             <label class="form-label">Computadora involucrada (opcional)</label>
             <select name="idComputadora" class="form-select">
@@ -56,7 +48,6 @@
                 @endforeach
             </select>
         </div>
-
         <button type="submit" class="btn btn-primary">Enviar Reporte</button>
     </form>
 </div>

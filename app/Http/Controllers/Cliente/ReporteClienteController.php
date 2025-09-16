@@ -18,17 +18,18 @@ class ReporteClienteController extends Controller
         $empleados = User::all()->where('rol', 2);
         $componentes = Componente::all();
         $computadoras = Computadora::all();
-
+        //enviando a vista con lo obtenido
         return view('cliente.reportes.create', compact('empleados', 'componentes', 'computadoras'));
     }
 
     public function store(Request $request)
     {
+        //validando datos del form en la DB
         $request->validate([
             'tipo' => 'required|in:queja,sugerencia',
             'descripcion' => 'required|string|max:200',
         ]);
-
+        //creando reporte en la DB
         ReporteCliente::create([
             'tipo' => $request->tipo,
             'descripcion' => $request->descripcion,
@@ -37,7 +38,7 @@ class ReporteClienteController extends Controller
             'idComputadora' => $request->idComputadora,
             'nitUsuario' => Auth::id(),
         ]);
-
+        //regresando a vista con msj
         return redirect()->route('cliente.reportes.create')
             ->with('success', 'Tu reporte ha sido enviado correctamente, de ser necesario un empleado se pondra en contacto contigo.');
     }

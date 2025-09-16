@@ -141,25 +141,14 @@ class ComprarController extends Controller
 
     public function listarCompras()
     {
+        //obteniendo usuario de la sesion
         $user = Auth::user();
+        //obteniendo sus compras
         $compras = Venta::where('nitUsuario', $user->id)
             ->with(['factura', 'detalles.computadora.componentes', 'detalles.componente'])
             ->orderBy('fecha', 'desc')
             ->get();
-
+        //enviando  vista con sus compras
         return view('cliente.compras.listar', compact('compras'));
-    }
-
-    public function verFactura($id)
-    {
-        $user = Auth::user();
-        $factura = Factura::where('id', $id)
-            ->whereHas('venta', function ($query) use ($user) {
-                $query->where('nitUsuario', $user->id);
-            })
-            ->with(['venta.detalles.computadora.componentes', 'venta.detalles.componente'])
-            ->firstOrFail();
-
-        return view('cliente.facturas.ver', compact('factura'));
     }
 }

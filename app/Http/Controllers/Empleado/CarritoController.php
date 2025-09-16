@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Computadora;
 use App\Models\Componente;
+use App\Models\User;
 
 class CarritoController extends Controller
 {
@@ -13,7 +14,7 @@ class CarritoController extends Controller
     {
         $carrito = session()->get('carrito', []);
         //obteniendo usuarios con rol = 3, que son clientes
-        $clientes = \App\Models\User::where('rol', 3)->get();
+        $clientes = User::where('rol', 3)->get();
         return view('empleado.carrito', compact('carrito', 'clientes'));
     }
 
@@ -57,14 +58,14 @@ class CarritoController extends Controller
 
     public function eliminar($id)
     {
-        logger()->info("Intentando eliminar item con id={$id} del carrito");
+        //obteniendo carrito de la sesion
         $carrito = session()->get('carrito', []);
-        logger()->info('Carrito actual: ' . json_encode($carrito));
-
+        //si el objeto esta en el carrito, se elimina
         if (isset($carrito[$id])) {
             unset($carrito[$id]);
             session()->put('carrito', $carrito);
         }
+        //enviando a vista con msj
         return redirect()->route('empleado.carrito.index')->with('success', 'Producto eliminado del carrito.');
     }
 

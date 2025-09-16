@@ -61,7 +61,7 @@ class ComputadoraController extends Controller
         $nuevaComputadora->save();
         //asociandop los componentes seleccionados a la computadora nueva
         foreach ($datos as $tipo => $info) {
-            $componenteId = $info['id'];   // usar SIEMPRE el id real
+            $componenteId = $info['id'];
             $cantidad = $info['cantidad'] ?? 1;
             $nuevaComputadora->componentes()->attach($componenteId, ['cantidad' => $cantidad]);
         }

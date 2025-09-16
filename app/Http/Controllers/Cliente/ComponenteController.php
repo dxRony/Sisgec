@@ -10,7 +10,9 @@ class ComponenteController extends Controller
 {
     public function listar()
     {
+        //obteniendo los componentes
         $componentes = Componente::all();
+        //enviando a vista con los componentes
         return view('cliente.componentes.listar', compact('componentes'));
     }
 }

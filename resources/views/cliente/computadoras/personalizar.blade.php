@@ -30,20 +30,20 @@
                     <td><strong>{{ $tipo }}</strong></td>
                     <td>
                         <select name="componentes[{{ $tipo }}][id]" class="form-select" required>
-                            @foreach($componentesDisponibles as $c)
-                            <option value="{{ $c->id }}"
-                                {{ isset($seleccionados[$tipo]) && $seleccionados[$tipo]->id == $c->id ? 'selected' : '' }}>
-                                {{ $c->marca }}
+                            @foreach($componentesDisponibles as $componente)
+                            <option value="{{ $componente->id }}"
+                                {{ isset($seleccionados[$tipo]) && $seleccionados[$tipo]->id == $componente->id ? 'selected' : '' }}>
+                                {{ $componente->marca }}
                                 @if($tipo === 'Procesador')
-                                - {{ $c->velocidad }} GHz / {{ $c->nucleos }} núcleos
+                                - {{ $componente->velocidad }} GHz / {{ $componente->nucleos }} núcleos
                                 @elseif($tipo === 'Memoria RAM')
-                                - {{ $c->capacidad }} GB / {{ $c->velocidad }} MHz
+                                - {{ $componente->capacidad }} GB / {{ $componente->velocidad }} MHz
                                 @elseif($tipo === 'Almacenamiento')
-                                - {{ $c->capacidad }} GB / {{ $c->tipo }}
+                                - {{ $componente->capacidad }} GB / {{ $componente->tipo }}
                                 @elseif($tipo === 'Fuente De Poder')
-                                - {{ $c->potencia }} W
+                                - {{ $componente->potencia }} W
                                 @elseif($tipo === 'Gabinete')
-                                - Color: {{ $c->color }}
+                                - Color: {{ $componente->color }}
                                 @endif
                             </option>
                             @endforeach
