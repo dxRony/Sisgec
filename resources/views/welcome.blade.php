@@ -19,7 +19,7 @@
                Esta es una aplicacion web en la que podras realizar la compra de tu computadora, podras elegir la opcion de comprar una computadora
                 ya armada o personalizar la tuya a partir de componentes disponibles en el inventario.
             </p>
-            <a href="{{ route('login') }}" class="btn btn-start mt-4">💻 Empezar ahora</a>
+            <a href="{{ route('login') }}" class="btn btn-start mt-4">Iniciar sesion</a>
         </div>
     </section>
 

@@ -43,6 +43,8 @@ class ComputadoraController extends Controller
             'componentes.procesador' => 'nullable|integer|exists:Componente,id',
             'componentes.fuente' => 'nullable|integer|exists:Componente,id',
             'componentes.gabinete' => 'nullable|integer|exists:Componente,id',
+            'componentes.rams' => 'nullable|array',
+            'componentes.storages' => 'nullable|array',
         ]);
         //evaluando receta minima
         if (empty($request->componentes['procesador'])) {
@@ -54,6 +56,12 @@ class ComputadoraController extends Controller
         if (empty($request->componentes['gabinete'])) {
             return back()->withErrors(['gabinete' => 'Debe seleccionar un gabinete.']);
         }
+        if (empty($request->componentes['rams']) || count($request->componentes['rams']) < 1) {
+            return back()->withErrors(['rams' => 'Debe seleccionar al menos una memoria RAM.']);
+        }
+        if (empty($request->componentes['storages']) || count($request->componentes['storages']) < 1) {
+            return back()->withErrors(['storages' => 'Debe seleccionar al menos un dispositivo de almacenamiento.']);
+        }
         $disponibilidad = $request->disponibilidad;
         //creando array de componentes y cantidades
         $componentes = [
@@ -62,17 +70,13 @@ class ComputadoraController extends Controller
             ['id' => $request->componentes['gabinete'], 'cantidad' => 1],
         ];
         //agregando rams y storages si existen
-        if (!empty($request->componentes['rams'])) {
-            foreach ($request->componentes['rams'] as $idRam => $val) {
-                $cantidad = $request->cantidades['rams'][$idRam] ?? 1;
-                $componentes[] = ['id' => $idRam, 'cantidad' => $cantidad];
-            }
+        foreach ($request->componentes['rams'] as $idRam => $val) {
+            $cantidad = $request->cantidades['rams'][$idRam] ?? 1;
+            $componentes[] = ['id' => $idRam, 'cantidad' => $cantidad];
         }
-        if (!empty($request->componentes['storages'])) {
-            foreach ($request->componentes['storages'] as $idStorage => $val) {
-                $cantidad = $request->cantidades['storages'][$idStorage] ?? 1;
-                $componentes[] = ['id' => $idStorage, 'cantidad' => $cantidad];
-            }
+        foreach ($request->componentes['storages'] as $idStorage => $val) {
+            $cantidad = $request->cantidades['storages'][$idStorage] ?? 1;
+            $componentes[] = ['id' => $idStorage, 'cantidad' => $cantidad];
         }
         // validando stock de los componentes
         foreach ($componentes as $c) {
