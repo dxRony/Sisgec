@@ -17,7 +17,7 @@ class RegisterController extends Controller
 
     public function register(Request $request)
     {
-        //validando datos del form en la DB
+        //validando datos del form
         $request->validate([
             'nit' => 'required|integer|unique:users,id',
             'nombre' => 'required|string|max:100',
@@ -32,11 +32,10 @@ class RegisterController extends Controller
             'username' => $request->username,
             'password' => Hash::make($request->password),
             'celular' => $request->celular,
-            'email' => $request->username . '@sistema.com',
+            'email' => $request->username . '@sisgec.com',
             'activo' => true,
             'rol' => 3,
         ]);
-
         return redirect()->route('login')->with('success', 'Registro exitoso.');
     }
 }

@@ -15,7 +15,7 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-        //validando datos del form en la DB
+        //validando datos del form
         $request->validate([
             'username' => 'required',
             'password' => 'required',

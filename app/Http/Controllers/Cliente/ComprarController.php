@@ -113,7 +113,7 @@ class ComprarController extends Controller
             $cantidad = isset($item['cantidad']) ? (int)$item['cantidad'] : 1;
 
             if (!$tipo || !$id) {
-                logger()->warning('Item inválido en carrito (falta tipo o id)', ['key' => $key, 'item' => $item]);
+                logger()->warning('Item ivnalido en carrito (falta tipo o id)', ['key' => $key, 'item' => $item]);
                 continue;
             }
             //obteniendo el precio

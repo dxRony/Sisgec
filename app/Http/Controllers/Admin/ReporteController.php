@@ -25,7 +25,6 @@ class ReporteController extends Controller
             ->with('componente')
             ->orderByDesc('totalVendido')
             ->get();
-
         return view('admin.reportes.componentes', compact('componentes'));
     }
 

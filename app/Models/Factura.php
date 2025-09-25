@@ -11,7 +11,6 @@ class Factura extends Model
     protected $fillable = ['idVenta', 'nit', 'fecha'];
     public $timestamps = false;
 
-    // Relación con Venta
     public function venta(): BelongsTo
     {
         return $this->belongsTo(Venta::class, 'idVenta');

@@ -70,7 +70,6 @@ class ComputadoraController extends Controller
         return redirect()->route('cliente.index')->with('success', 'Computadora personalizada agregada al carrito.');
     }
 
-
     public function registrarV()
     {
         //obteniendo todos los componentes por tipo de la DB

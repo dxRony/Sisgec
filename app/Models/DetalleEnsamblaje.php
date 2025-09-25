@@ -10,16 +10,14 @@ class DetalleEnsamblaje extends Model
     protected $table = 'DetalleEnsamblaje';
     public $timestamps = false;
     public $incrementing = false;
-    protected $primaryKey = null; // clave compuesta
+    protected $primaryKey = null;
     protected $fillable = ['idEnsamblaje', 'idComponente', 'cantidad'];
 
-    // Relación con Ensamblaje
     public function ensamblaje(): BelongsTo
     {
         return $this->belongsTo(Ensamblaje::class, 'idEnsamblaje');
     }
 
-    // Relación con Componente
     public function componente(): BelongsTo
     {
         return $this->belongsTo(Componente::class, 'idComponente');
